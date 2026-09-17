@@ -417,7 +417,7 @@ h1 {
   display: grid;
   place-items: center;
   color: var(--ink);
-  background: var(--orange);
+  background: var(--white);
   border: 6px solid var(--blue);
   border-radius: 50%;
   font-size: 1.18rem;
