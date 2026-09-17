@@ -8,7 +8,7 @@ One-page, SEO-first lead-generation website for international teams ordering eve
 - `src/styles.css` — complete responsive design system
 - `src/script.js` — navigation, analytics events and lead form states
 - `src/assets/images` — optimized WebP project photography
-- `src/_worker.js` — Cloudflare Pages Worker for lead validation, delivery and static assets
+- `src/_worker.js` — Cloudflare Worker for lead validation, delivery and static assets
 - `scripts/build.mjs` — dependency-free static build
 - `dist` — generated Cloudflare Pages output
 
@@ -53,16 +53,16 @@ The frontend pushes these events to `window.dataLayer`, ready for GA4/GTM once t
 
 No analytics script or cookie banner is loaded in the preview.
 
-## Cloudflare Pages
+## Cloudflare Workers
 
-The project uses `wrangler.jsonc` with `dist` as its build output. Preview and production commands are separate:
+The project uses Cloudflare's current Workers static-assets architecture, the modern equivalent recommended for new Pages-style projects. `wrangler.jsonc` serves `dist` globally and sends only `/api/*` through the Worker.
 
 ```bash
 npm run deploy:preview
 npm run deploy:production
 ```
 
-The temporary preview is deployed from the `preview` branch. Connect `merch.mt` only after approval. The canonical URL and sitemap are already prepared for the final domain.
+The temporary preview is deployed to a `workers.dev` address. Connect `merch.mt` only after approval. The canonical URL and sitemap are already prepared for the final domain.
 
 ## Before production launch
 

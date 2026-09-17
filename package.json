@@ -7,12 +7,11 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "check": "node scripts/check.mjs",
-    "dev": "npm run build && wrangler pages dev",
-    "deploy:preview": "npm run build && wrangler pages deploy --branch preview",
-    "deploy:production": "npm run build && wrangler pages deploy --branch main"
+    "dev": "npm run build && wrangler dev",
+    "deploy:preview": "npm run build && wrangler deploy",
+    "deploy:production": "npm run build && wrangler deploy"
   },
   "devDependencies": {
     "wrangler": "^4.0.0"
   }
 }
-

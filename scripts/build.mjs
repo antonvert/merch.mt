@@ -453,7 +453,6 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <priority>1.0</priority>
   </url>
 </urlset>`;
-const routes = JSON.stringify({ version: 1, include: ["/api/*"], exclude: [] }, null, 2);
 const headers = `/*
   Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
   Referrer-Policy: strict-origin-when-cross-origin
@@ -475,13 +474,11 @@ await copyFile(path.join(projectRoot, "src/styles.css"), path.join(distDir, "ass
 await copyFile(path.join(projectRoot, "src/script.js"), path.join(distDir, "assets/script.js"));
 await copyFile(path.join(projectRoot, "src/favicon.svg"), path.join(distDir, "favicon.svg"));
 await copyFile(path.join(projectRoot, "src/apple-touch-icon.png"), path.join(distDir, "apple-touch-icon.png"));
-await copyFile(path.join(projectRoot, "src/_worker.js"), path.join(distDir, "_worker.js"));
 await Promise.all([
   writeFile(path.join(distDir, "index.html"), html),
   writeFile(path.join(distDir, "404.html"), notFoundHtml),
   writeFile(path.join(distDir, "robots.txt"), robots),
   writeFile(path.join(distDir, "sitemap.xml"), sitemap),
-  writeFile(path.join(distDir, "_routes.json"), routes),
   writeFile(path.join(distDir, "_headers"), headers)
 ]);
 

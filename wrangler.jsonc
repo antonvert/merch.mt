@@ -1,7 +1,16 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "merch-mt",
-  "pages_build_output_dir": "./dist",
-  "compatibility_date": "2026-09-17"
+  "name": "merch-mt-preview",
+  "main": "src/_worker.js",
+  "compatibility_date": "2026-09-17",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  "observability": {
+    "enabled": true
+  }
 }
-
