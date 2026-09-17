@@ -7,7 +7,7 @@ const failures = [];
 
 const count = (pattern) => (html.match(pattern) || []).length;
 if (count(/<h1\b/g) !== 1) failures.push("Homepage must contain exactly one H1.");
-if (!html.includes("Event Merchandise for Conferences in Malta")) failures.push("Primary topic is missing.");
+if (!html.includes("Your Merch Partner in Malta")) failures.push("Primary positioning is missing.");
 if (!html.includes("SiGMA Europe Malta") || !html.includes("SBC Summit Malta") || !html.includes("NEXT Summit Valletta")) {
   failures.push("Featured Malta conferences are missing.");
 }
@@ -31,4 +31,3 @@ if (failures.length) {
 }
 
 console.log(`Checks passed: 1 H1, ${assetMatches.length} local asset references, lead form, metadata and conference copy.`);
-

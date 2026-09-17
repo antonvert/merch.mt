@@ -188,7 +188,7 @@ const html = `<!doctype html>
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="merch.mt">
-  <meta property="og:title" content="Event Merchandise for Conferences in Malta">
+  <meta property="og:title" content="Your Event Merch Partner in Malta">
   <meta property="og:description" content="${escapeHtml(site.description)}">
   <meta property="og:url" content="${site.url}/">
   <meta property="og:image" content="${site.url}/assets/images/og-event-merchandise-malta.jpg">
@@ -196,7 +196,7 @@ const html = `<!doctype html>
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Branded conference merchandise produced for an international event team">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Event Merchandise for Conferences in Malta">
+  <meta name="twitter:title" content="Your Event Merch Partner in Malta">
   <meta name="twitter:description" content="${escapeHtml(site.description)}">
   <meta name="twitter:image" content="${site.url}/assets/images/og-event-merchandise-malta.jpg">
   <link rel="preload" as="image" href="/assets/images/starcrown-event-gifts.webp" imagesrcset="/assets/images/starcrown-event-gifts-640.webp 640w, /assets/images/starcrown-event-gifts.webp 960w" imagesizes="(max-width: 860px) 100vw, 42vw">
@@ -232,16 +232,16 @@ const html = `<!doctype html>
   <main id="main">
     <section class="hero" id="top">
       <div class="hero__content">
-        <p class="eyebrow"><span></span> For international event teams</p>
-        <h1>Event Merchandise for Conferences in Malta</h1>
-        <p class="hero__lede">Custom merchandise, giveaways, branded apparel and VIP gifts for companies attending events in Malta. Produced in the EU and delivered to your venue, hotel or agreed location.</p>
+        <p class="eyebrow"><span></span> Conference merch, delivered where you need it</p>
+        <h1>Your Merch Partner in Malta</h1>
+        <p class="hero__lede">Need merch for an event? We’ll handle it—from product selection and EU production to delivery straight to your booth or hotel room.</p>
         <div class="hero__actions">
           <a class="button button--light" href="#quote" data-event="hero_cta_click">Get a Quote <span aria-hidden="true">↗</span></a>
           <a class="text-link" href="${site.telegramUrl}" target="_blank" rel="noopener" data-event="telegram_click" data-event-label="hero">Send your brief on Telegram</a>
         </div>
         <ul class="proof-list" aria-label="Service highlights">
           <li>EU production</li>
-          <li>Delivery to Malta</li>
+          <li>Booth & hotel delivery</li>
           <li>Personal manager</li>
         </ul>
       </div>
@@ -267,7 +267,7 @@ const html = `<!doctype html>
       <div class="section-heading section-heading--split">
         <div>
           <p class="eyebrow eyebrow--dark"><span></span> Coming to Malta for an event?</p>
-          <h2>You focus on the event.<br>We handle the merch.</h2>
+          <h2>Need merch for an event?<br>We’ll handle it.</h2>
         </div>
         <div class="intro-section__copy">
           <p>Tell us the event, dates, product idea, quantity, branding and approximate budget. We take it from there—from the first shortlist to delivery in Malta.</p>
@@ -329,28 +329,28 @@ const html = `<!doctype html>
       <div class="benefit-grid">${benefitCards}</div>
     </section>
 
-    <section class="section timeline-section">
+    <section class="section timeline-section" id="timeline">
       <div class="timeline-section__intro">
         <p class="eyebrow eyebrow--dark"><span></span> Lead time</p>
         <h2>Order early.<br>Arrive stress-free.</h2>
-        <p>Three weeks gives us room to make better product choices, align branding and plan delivery. Closer event? Ask us anyway.</p>
+        <p>Earlier is better for choice and planning. At three weeks we are already moving fast. Two weeks or less is possible only after an individual check.</p>
         <a class="button button--blue" href="#quote" data-event="timeline_cta_click">Check my timeline</a>
       </div>
       <div class="timeline" aria-label="Typical event merchandise lead times">
         <div class="timeline__item timeline__item--ideal">
-          <span>Ideal</span>
-          <strong>3 weeks</strong>
-          <p>The smoothest route for selection, production and delivery.</p>
-        </div>
-        <div class="timeline__item">
-          <span>Possible</span>
-          <strong>2 weeks</strong>
-          <p>A tighter choice of products and branding methods.</p>
+          <span>Best timing</span>
+          <strong>4+ weeks</strong>
+          <p>The widest product choice and the smoothest production plan.</p>
         </div>
         <div class="timeline__item timeline__item--rush">
-          <span>Rush case</span>
-          <strong>Less</strong>
-          <p>Send the brief—we will assess what is realistically possible.</p>
+          <span>Rush</span>
+          <strong>3 weeks</strong>
+          <p>Fast-track decisions, production and delivery coordination.</p>
+        </div>
+        <div class="timeline__item">
+          <span>Case by case</span>
+          <strong>2 weeks or less</strong>
+          <p>Fewer available options. Send the brief and we will check what is realistic.</p>
         </div>
       </div>
     </section>
@@ -375,8 +375,8 @@ const html = `<!doctype html>
     <section class="quote-section" id="quote">
       <div class="quote-section__copy">
         <p class="eyebrow"><span></span> Start your brief</p>
-        <h2>Coming to Malta for a conference?</h2>
-        <p>Tell us your event, dates and what you need. We will help select, produce and deliver your merchandise before your team arrives.</p>
+        <h2>Need merch for an event in Malta?</h2>
+        <p>We’ll handle it. Tell us the event, dates and what you need—we will select, produce and deliver your merchandise straight to your booth or hotel.</p>
         <div class="direct-contact">
           <span>Prefer a direct message?</span>
           <a href="${site.telegramUrl}" target="_blank" rel="noopener" data-event="telegram_click" data-event-label="form">Telegram · ${site.telegramLabel}</a>

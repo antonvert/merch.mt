@@ -1,9 +1,9 @@
 export const site = {
   name: "merch.mt",
   url: "https://merch.mt",
-  title: "Event & Conference Merchandise Malta | merch.mt",
+  title: "Your Event Merch Partner in Malta | merch.mt",
   description:
-    "Branded merchandise, giveaways, apparel and custom gifts for companies attending conferences in Malta. Produced in the EU and delivered to your venue.",
+    "Need merchandise for an event in Malta? We handle product selection, EU production and delivery straight to your booth or hotel room.",
   email: "order@swaggy.agency",
   telegramUrl: "https://t.me/swaggyagency",
   telegramLabel: "@swaggyagency",
@@ -150,7 +150,7 @@ export const gallery = [
 export const benefits = [
   ["Don't carry boxes to Malta", "Your team travels light. Your merchandise takes the direct route to the agreed location."],
   ["EU production", "Your merchandise is sourced, branded and produced within the European Union."],
-  ["Delivery where you need it", "Conference venue, hotel or another agreed event location in Malta."],
+  ["Delivery where you need it", "Straight to your conference booth, hotel room or another agreed location in Malta."],
   ["One point of contact", "A dedicated manager coordinates products, production, quality checks and delivery."],
   ["Products that fit the moment", "From simple giveaways to custom merchandise, apparel and VIP gifts."],
   ["Less event-week stress", "Order ahead and arrive knowing one important part of the event is already handled."]
@@ -161,19 +161,19 @@ export const steps = [
   ["02", "Send your brief", "Tell us the idea, quantity, branding and approximate budget."],
   ["03", "Approve the merch", "We suggest options and align the final specification with you."],
   ["04", "We produce in the EU", "Branding, production and quality control stay with one team."],
-  ["05", "We deliver to Malta", "Your order arrives at the venue, hotel or agreed location."]
+  ["05", "We deliver to Malta", "Your order arrives at your booth, hotel room or another agreed location."]
 ];
 
 export const faqs = [
   {
     question: "How early should I order merchandise for an event in Malta?",
     answer:
-      "Around three weeks before your event is the most comfortable timeline for product selection, branding, production and delivery. Two weeks may still be possible. If your event is closer, send us the brief and we will assess the available rush options."
+      "Earlier than three weeks is best for product choice and smooth delivery. Around three weeks is already a rush timeline. Two weeks or less is assessed case by case, with fewer products and branding options available."
   },
   {
     question: "Can you deliver merchandise directly to my conference venue?",
     answer:
-      "Yes. We can arrange delivery to a conference venue, hotel or another agreed location in Malta. We confirm the delivery details and contact person with you before dispatch."
+      "Yes. We can arrange delivery straight to your conference booth, hotel room or another agreed location in Malta. We confirm the delivery details and contact person with you before dispatch."
   },
   {
     question: "Can you produce merchandise for SiGMA Europe Malta?",
