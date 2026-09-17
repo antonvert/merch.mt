@@ -3,6 +3,7 @@
   --blue-deep: #151d82;
   --blue-soft: #e8ebff;
   --orange: #ff5b2e;
+  --orange-dark: #b83210;
   --orange-soft: #ffe7df;
   --ink: #11131a;
   --muted: #5f6270;
@@ -599,9 +600,13 @@ h1 {
 }
 
 .conference-card__index {
-  color: var(--orange);
+  color: var(--orange-dark);
   font-size: 0.78rem;
   font-weight: 900;
+}
+
+.conference-card:nth-child(2) .conference-card__index {
+  color: #ffd0c2;
 }
 
 .conference-card h3 {
@@ -667,7 +672,7 @@ h1 {
 .disclaimer {
   max-width: 840px;
   margin: 24px 0 0 248px;
-  color: #7a7c85;
+  color: #5f616a;
   font-size: 0.77rem;
 }
 
@@ -1020,7 +1025,7 @@ h1 {
 }
 
 .direct-contact span {
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.78);
   font-size: 0.74rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -1195,7 +1200,7 @@ h1 {
   grid-column: 1 / -1;
   margin: 0;
   padding-top: 28px;
-  color: rgba(255, 255, 255, 0.42);
+  color: rgba(255, 255, 255, 0.6);
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   font-size: 0.75rem;
 }
@@ -1664,7 +1669,7 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--white);
+    color: var(--ink);
     background: var(--orange);
     border: 2px solid var(--ink);
     border-radius: 100px;
