@@ -30,28 +30,6 @@
     document.querySelectorAll("[data-observe-event]").forEach((element) => observer.observe(element));
   }
 
-  const menuButton = document.querySelector("[data-menu-button]");
-  const mobileMenu = document.querySelector("[data-mobile-menu]");
-  if (menuButton && mobileMenu) {
-    const closeMenu = () => {
-      menuButton.setAttribute("aria-expanded", "false");
-      mobileMenu.hidden = true;
-      document.body.classList.remove("menu-open");
-    };
-
-    menuButton.addEventListener("click", () => {
-      const willOpen = menuButton.getAttribute("aria-expanded") !== "true";
-      menuButton.setAttribute("aria-expanded", String(willOpen));
-      mobileMenu.hidden = !willOpen;
-      document.body.classList.toggle("menu-open", willOpen);
-    });
-
-    mobileMenu.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeMenu();
-    });
-  }
-
   const form = document.querySelector("[data-lead-form]");
   const stickyCta = document.querySelector(".mobile-sticky-cta");
   const quoteSection = document.querySelector("#quote");

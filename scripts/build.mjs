@@ -205,32 +205,21 @@ const html = `<!doctype html>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header" data-header>
-    <a class="brand" href="#top" aria-label="merch.mt home">
-      <span class="brand__wordmark">merch.mt</span>
-      <span class="brand__endorsement">Powered by SWAGGY</span>
-    </a>
-    <nav class="desktop-nav" aria-label="Main navigation">
-      <a href="#merchandise">Merchandise</a>
-      <a href="#conferences">Conferences</a>
-      <a href="#projects">Projects</a>
-      <a href="#process">How it works</a>
-    </nav>
-    <a class="button button--small header-cta" href="#quote" data-event="header_cta_click">Get a Quote</a>
-    <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-button>
-      <span></span><span></span><span></span><span class="sr-only">Open menu</span>
-    </button>
-    <nav class="mobile-nav" id="mobile-menu" aria-label="Mobile navigation" hidden data-mobile-menu>
-      <a href="#merchandise">Merchandise</a>
-      <a href="#conferences">Conferences</a>
-      <a href="#projects">Projects</a>
-      <a href="#process">How it works</a>
-      <a href="#quote">Get a Quote</a>
-    </nav>
-  </header>
-
   <main id="main">
     <section class="hero" id="top">
+      <header class="site-header" data-header>
+        <a class="brand" href="#top" aria-label="merch.mt home">
+          <span class="brand__wordmark">merch.mt</span>
+          <span class="brand__endorsement">Powered by SWAGGY</span>
+        </a>
+        <nav class="desktop-nav" aria-label="Main navigation">
+          <a href="#merchandise">Merchandise</a>
+          <a href="#conferences">Conferences</a>
+          <a href="#projects">Projects</a>
+          <a href="#process">How it works</a>
+        </nav>
+        <a class="button button--small header-cta" href="#quote" data-event="header_cta_click">Get a Quote</a>
+      </header>
       <div class="hero__content">
         <p class="eyebrow"><span></span> Conference merch, delivered where you need it</p>
         <h1>Your Merch Partner in Malta</h1>
