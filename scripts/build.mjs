@@ -95,6 +95,30 @@ const galleryCards = gallery
   )
   .join("");
 
+const productionProofIndexes = [0, 1, 3, 8];
+const productionProofCards = productionProofIndexes
+  .map((index) => {
+    const item = gallery[index];
+    return `
+      <figure class="production-proof__card" data-gallery-item>
+        ${picture({ image: item.image, alt: item.alt }).trim()}
+        <figcaption><strong>${escapeHtml(item.client)}</strong><span>${escapeHtml(item.type)}</span></figcaption>
+      </figure>`;
+  })
+  .join("");
+
+const productionProofSection = `
+    <section class="production-proof" data-observe-event="project_gallery_view">
+      <div class="production-proof__heading">
+        <div>
+          <p class="eyebrow eyebrow--dark"><span></span> Selected work</p>
+          <h2>Real merchandise.<br>Real events.</h2>
+        </div>
+        <p>Products photographed where they matter: at booths, partner meetings and international conferences.</p>
+      </div>
+      <div class="production-proof__grid">${productionProofCards}</div>
+    </section>`;
+
 const benefitCards = benefits
   .map(
     ([title, description], index) => `
@@ -439,10 +463,38 @@ const editorialHtml = renderVariant({ theme: "editorial", themeColor: "#f5f3ee" 
 const igamingHtml = renderVariant({ theme: "igaming", themeColor: "#07090e" });
 const eventCultureHtml = renderVariant({ theme: "event-culture", themeColor: "#090b10" });
 const productionHtml = renderVariant({ theme: "production", themeColor: "#f5f4f0" })
+  .replace("Conference merch, delivered where you need it", "Event merchandise for conferences in Malta")
   .replace("Send your brief on Telegram", "Send Your Brief")
+  .replace("<h2>Real merchandise.<br>Real events.</h2>", "<h2>More real work.</h2>")
   .replace(
-    "<h2>Need merch for an event?<br>We’ll handle it.</h2>",
-    "<h2>You focus on the event.<br>We handle the merch.</h2>"
+    '    </section>\n\n    <section class="marquee" aria-label="Service summary">',
+    `    </section>\n${productionProofSection}\n\n    <section class="marquee" aria-label="Service summary">`
+  )
+  .replace(
+    '<section class="marquee" aria-label="Service summary">\n      <div>',
+    '<section class="marquee" aria-label="Service summary">\n      <h2>You focus on the event. We handle the merch.</h2>\n      <div>'
+  )
+  .replace(
+    /\n    <section class="section intro-section">[\s\S]*?<\/section>\n\n    <section class="section section--tint" id="merchandise">/,
+    '\n\n    <section class="section section--tint" id="merchandise">'
+  )
+  .replace("Ready for Malta's biggest conferences.", "Built for Malta's event circuit.")
+  .replace(
+    '<section class="section conferences-section" id="conferences" data-observe-event="conference_section_view">',
+    '<div class="production-event-scene">\n    <section class="section conferences-section" id="conferences" data-observe-event="conference_section_view">'
+  )
+  .replace(
+    '</ul>\n    </section>\n\n    <section class="section projects-section"',
+    '</ul>\n    </section>\n    </div>\n\n    <section class="section projects-section"'
+  )
+  .replace(
+    '<section class="section section--ink benefits-section">',
+    '<div class="production-ops-scene">\n    <section class="section section--ink benefits-section">'
+  )
+  .replace("Arrive in Malta with one less thing to worry about.", "From brief to Malta.")
+  .replace(
+    '</ol>\n    </section>\n\n    <section class="section faq-section">',
+    '</ol>\n    </section>\n    </div>\n\n    <section class="section faq-section">'
   );
 
 const notFoundHtml = `<!doctype html>
