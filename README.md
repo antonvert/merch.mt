@@ -16,6 +16,10 @@ One-page, SEO-first lead-generation website for international teams ordering eve
 - `scripts/build.mjs` — dependency-free static build
 - `dist` — generated Cloudflare Pages output
 
+## Documentation
+
+- [`docs/seo-geo-implementation-report.md`](docs/seo-geo-implementation-report.md) — code-based SEO, GEO/AI Search and post-launch measurement report
+
 ## Local development
 
 ```bash
