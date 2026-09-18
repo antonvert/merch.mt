@@ -189,12 +189,22 @@ const structuredData = {
     {
       "@type": "Service",
       "@id": `${site.url}/#service`,
-      name: "Event merchandise production and delivery for conferences in Malta",
+      name: "Event and conference merchandise for Malta",
       description:
-        "Custom event merchandise, branded giveaways, apparel, welcome kits and corporate gifts produced in the EU and delivered for conferences in Malta.",
+        "Branded event merchandise, conference giveaways, iGaming merchandise and promotional products produced in the EU and delivered to venues, booths and hotels in Malta.",
       provider: { "@id": `${site.url}/#organization` },
       areaServed: { "@type": "Country", name: "Malta" },
-      serviceType: "Event merchandise production and delivery"
+      serviceType: [
+        "Event merchandise",
+        "Conference merchandise",
+        "Branded merchandise",
+        "Promotional products",
+        "iGaming conference merchandise"
+      ],
+      audience: {
+        "@type": "BusinessAudience",
+        audienceType: "Exhibitors, sponsors and international event teams"
+      }
     },
     {
       "@type": "FAQPage",
@@ -220,7 +230,7 @@ const html = `<!doctype html>
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="merch.mt">
-  <meta property="og:title" content="Your Event Merch Partner in Malta">
+  <meta property="og:title" content="${escapeHtml(site.title)}">
   <meta property="og:description" content="${escapeHtml(site.description)}">
   <meta property="og:url" content="${site.url}/">
   <meta property="og:image" content="${site.url}/assets/images/og-event-merchandise-malta.jpg">
@@ -228,7 +238,7 @@ const html = `<!doctype html>
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Branded conference merchandise produced for an international event team">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Your Event Merch Partner in Malta">
+  <meta name="twitter:title" content="${escapeHtml(site.title)}">
   <meta name="twitter:description" content="${escapeHtml(site.description)}">
   <meta name="twitter:image" content="${site.url}/assets/images/og-event-merchandise-malta.jpg">
   <link rel="preload" as="image" href="/assets/images/starcrown-event-gifts.webp" imagesrcset="/assets/images/starcrown-event-gifts-640.webp 640w, /assets/images/starcrown-event-gifts.webp 960w" imagesizes="(max-width: 860px) 100vw, 42vw">
@@ -253,9 +263,9 @@ const html = `<!doctype html>
         <a class="button button--small header-cta" href="#quote" data-event="header_cta_click">Get a Quote</a>
       </header>
       <div class="hero__content">
-        <p class="eyebrow"><span></span> Conference merch, delivered where you need it</p>
+        <p class="eyebrow"><span></span> Event merchandise for conferences in Malta</p>
         <h1>Your Merch Partner in Malta</h1>
-        <p class="hero__lede">Need merch for an event? We’ll handle it—from product selection and EU production to delivery straight to your booth or hotel room.</p>
+        <p class="hero__lede">Need branded merchandise for an event in Malta? We’ll handle it—from product selection and EU production to delivery straight to your booth or hotel room.</p>
         <div class="hero__actions">
           <a class="button button--light" href="#quote" data-event="hero_cta_click">Get a Quote <span aria-hidden="true">↗</span></a>
           <a class="text-link" href="${site.telegramUrl}" target="_blank" rel="noopener" data-event="telegram_click" data-event-label="hero">Send your brief on Telegram</a>
@@ -312,7 +322,7 @@ const html = `<!doctype html>
           <p class="eyebrow eyebrow--dark"><span></span> Malta conference merchandise</p>
           <h2>Ready for Malta's biggest conferences.</h2>
         </div>
-        <p>For exhibitors, sponsors, side-event hosts and international teams arriving with a full schedule—and no desire to travel with boxes.</p>
+        <p>iGaming conference merchandise for international teams, sponsors and B2B exhibitors arriving with a full schedule—and no desire to travel with boxes.</p>
       </div>
       <div class="conference-grid">${conferenceCards}</div>
       <div class="other-events">
@@ -326,7 +336,7 @@ const html = `<!doctype html>
       <div class="industries-section__copy">
         <p class="eyebrow"><span></span> Made for international event teams</p>
         <h2>Built with iGaming pace. Ready for every B2B crowd.</h2>
-        <p>We know the difference between a booth giveaway, a partner dinner gift and a team kit that has to look right in every photo.</p>
+        <p>We produce iGaming conference merchandise that works as a booth giveaway, a partner dinner gift or a team kit that looks right in every photo.</p>
       </div>
       <ul class="industry-list">${industryTags}</ul>
     </section>
@@ -397,7 +407,7 @@ const html = `<!doctype html>
       <div class="quote-section__copy">
         <p class="eyebrow"><span></span> Start your brief</p>
         <h2>Need merch for an event in Malta?</h2>
-        <p>We’ll handle it. Tell us the event, dates and what you need—we will select, produce and deliver your merchandise straight to your booth or hotel.</p>
+        <p>Order conference giveaways, branded merchandise or promotional products for your Malta event. We will select, produce and deliver everything straight to your booth, venue or hotel.</p>
         <div class="direct-contact">
           <span>Prefer a direct message?</span>
           <a href="${site.telegramUrl}" target="_blank" rel="noopener" data-event="telegram_click" data-event-label="form">Telegram · ${site.telegramLabel}</a>
@@ -428,7 +438,7 @@ const html = `<!doctype html>
   <footer class="site-footer">
     <div>
       <a class="brand brand--footer" href="#top"><span class="brand__wordmark">merch.mt</span><span class="brand__endorsement">A project by SWAGGY.agency</span></a>
-      <p>Event merchandise produced in the EU and delivered to Malta.</p>
+      <p>Event and conference merchandise produced in the EU and delivered to Malta.</p>
     </div>
     <div class="footer-links">
       <a href="${site.poweredByUrl}" target="_blank" rel="noopener">SWAGGY.agency</a>
@@ -463,7 +473,6 @@ const editorialHtml = renderVariant({ theme: "editorial", themeColor: "#f5f3ee" 
 const igamingHtml = renderVariant({ theme: "igaming", themeColor: "#07090e" });
 const eventCultureHtml = renderVariant({ theme: "event-culture", themeColor: "#090b10" });
 const productionHtml = renderVariant({ theme: "production", themeColor: "#f5f4f0" })
-  .replace("Conference merch, delivered where you need it", "Event merchandise for conferences in Malta")
   .replace("Send your brief on Telegram", "Send Your Brief")
   .replace("<h2>Real merchandise.<br>Real events.</h2>", "<h2>More real work.</h2>")
   .replace(

@@ -21,6 +21,28 @@ if (!html.includes('type="application/ld+json"')) failures.push("Structured data
 if (!html.includes('action="/api/lead"')) failures.push("Lead form endpoint is missing.");
 if (html.includes('content="noindex,nofollow"')) failures.push("The base concept must remain indexable.");
 
+const title = html.match(/<title>([^<]+)<\/title>/)?.[1] || "";
+const metaDescription = html.match(/<meta name="description" content="([^"]+)">/)?.[1] || "";
+if (title.length < 30 || title.length > 60) failures.push("SEO title should stay between 30 and 60 characters.");
+if (metaDescription.length < 120 || metaDescription.length > 160) {
+  failures.push("Meta description should stay between 120 and 160 characters.");
+}
+
+const searchableHtml = html.toLowerCase();
+for (const phrase of [
+  "event &amp; conference merchandise malta",
+  "branded event merchandise",
+  "promotional products",
+  "igaming conference merchandise",
+  "sigma malta merchandise",
+  "sbc malta merchandise",
+  "next valletta merchandise",
+  "merchandise supplier in malta",
+  "order merch for a malta event"
+]) {
+  if (!searchableHtml.includes(phrase)) failures.push(`SEO topic is missing from the page: ${phrase}`);
+}
+
 for (const [name, variantHtml] of [
   ["Editorial", editorialHtml],
   ["iGaming", igamingHtml],

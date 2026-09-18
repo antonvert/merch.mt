@@ -1,9 +1,9 @@
 export const site = {
   name: "merch.mt",
   url: "https://merch.mt",
-  title: "Your Event Merch Partner in Malta | merch.mt",
+  title: "Event & Conference Merchandise Malta | merch.mt",
   description:
-    "Need merchandise for an event in Malta? We handle product selection, EU production and delivery straight to your booth or hotel room.",
+    "Branded event merchandise, conference giveaways and promotional products produced in the EU and delivered to booths, hotels and venues across Malta.",
   email: "order@swaggy.agency",
   telegramUrl: "https://t.me/swaggyagency",
   telegramLabel: "@swaggyagency",
@@ -15,7 +15,7 @@ export const categories = [
   {
     number: "01",
     title: "Event Giveaways",
-    description: "Small branded products for booth visitors, networking and conference attendees."
+    description: "Conference giveaways and promotional products for booth visitors, networking and event attendees."
   },
   {
     number: "02",
@@ -53,17 +53,17 @@ export const featuredConferences = [
   {
     index: "01",
     name: "SiGMA Europe Malta",
-    description: "Merchandise for exhibitors, sponsors and event teams attending SiGMA Europe in Malta."
+    description: "SiGMA Malta merchandise for exhibitors, sponsors and event teams—from conference giveaways to client gifts."
   },
   {
     index: "02",
     name: "SBC Summit Malta",
-    description: "Giveaways, team apparel and client gifts for companies coming to SBC Summit Malta."
+    description: "SBC Malta merchandise, team apparel and conference giveaways for companies attending SBC Summit Malta."
   },
   {
     index: "03",
     name: "NEXT Summit Valletta",
-    description: "Branded merchandise produced for international teams heading to NEXT Summit Valletta."
+    description: "NEXT Valletta merchandise and branded gifts for international teams attending NEXT Summit Valletta."
   }
 ];
 
@@ -178,19 +178,19 @@ export const faqs = [
       "Earlier than three weeks is best for product choice and smooth delivery. Around three weeks is already a rush timeline. Two weeks or less is assessed case by case, with fewer products and branding options available."
   },
   {
-    question: "Can you deliver merchandise directly to my conference venue?",
+    question: "Can you deliver merchandise to a conference venue or hotel in Malta?",
     answer:
       "Yes. We can arrange delivery straight to your conference booth, hotel room or another agreed location in Malta. We confirm the delivery details and contact person with you before dispatch."
   },
   {
-    question: "Can you produce merchandise for SiGMA Europe Malta?",
+    question: "Can you produce merchandise for SiGMA Malta?",
     answer:
-      "Yes. We work with companies attending SiGMA Europe and can produce and deliver merchandise for their event participation. merch.mt and SWAGGY are not presented as official suppliers or partners of the event."
+      "Yes. We work with companies attending SiGMA Europe Malta and can produce conference giveaways, team apparel and client gifts for their participation. merch.mt and SWAGGY are not presented as official suppliers or partners of the event."
   },
   {
-    question: "Do you produce merchandise in Malta?",
+    question: "Are you a merchandise supplier in Malta?",
     answer:
-      "Our production is based within the European Union. We handle branding and quality control in the EU, then arrange delivery to Malta."
+      "We are an EU production partner for companies attending events in Malta. We handle branding and quality control within the EU, then arrange merchandise delivery to your venue, booth or hotel in Malta."
   },
   {
     question: "Can you handle urgent orders?",
@@ -200,11 +200,16 @@ export const faqs = [
   {
     question: "What kind of event merchandise can you produce?",
     answer:
-      "We produce conference giveaways, branded apparel, bags and textiles, team merchandise, client gifts, VIP gifts, welcome kits and custom campaign-specific products."
+      "We produce conference giveaways, promotional products, branded apparel, bags and textiles, team merchandise, client gifts, VIP gifts, welcome kits and custom campaign-specific products."
   },
   {
-    question: "Can you help us choose products?",
+    question: "How do I order merch for a Malta event?",
     answer:
-      "Absolutely. Share your audience, event format, quantity and budget. We will suggest products that make sense for your booth, team, partners or clients."
+      "Send us the event name, date, audience, quantity and approximate budget. We will suggest branded merchandise that fits your booth, team, partners or clients, then coordinate production and delivery to Malta."
+  },
+  {
+    question: "Can you supply merchandise for SBC Malta or NEXT Summit Valletta?",
+    answer:
+      "Yes. We can produce SBC Malta merchandise and NEXT Valletta merchandise for exhibitors, sponsors and international event teams, with delivery to an agreed location in Malta. We are not presented as an official supplier or partner of either event."
   }
 ];
