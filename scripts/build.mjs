@@ -16,17 +16,19 @@ import {
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = path.join(projectRoot, "dist");
-const [stylesSource, scriptSource, editorialStylesSource, igamingStylesSource] = await Promise.all([
+const [stylesSource, scriptSource, editorialStylesSource, igamingStylesSource, eventCultureStylesSource] = await Promise.all([
   readFile(path.join(projectRoot, "src/styles.css")),
   readFile(path.join(projectRoot, "src/script.js")),
   readFile(path.join(projectRoot, "src/themes/editorial.css")),
-  readFile(path.join(projectRoot, "src/themes/igaming.css"))
+  readFile(path.join(projectRoot, "src/themes/igaming.css")),
+  readFile(path.join(projectRoot, "src/themes/event-culture.css"))
 ]);
 const assetVersion = createHash("sha256")
   .update(stylesSource)
   .update(scriptSource)
   .update(editorialStylesSource)
   .update(igamingStylesSource)
+  .update(eventCultureStylesSource)
   .digest("hex")
   .slice(0, 10);
 
@@ -433,6 +435,7 @@ const renderVariant = ({ theme, themeColor }) =>
 
 const editorialHtml = renderVariant({ theme: "editorial", themeColor: "#f5f3ee" });
 const igamingHtml = renderVariant({ theme: "igaming", themeColor: "#07090e" });
+const eventCultureHtml = renderVariant({ theme: "event-culture", themeColor: "#090b10" });
 
 const notFoundHtml = `<!doctype html>
 <html lang="en">
@@ -477,6 +480,9 @@ const headers = `/*
 /igaming/*
   X-Robots-Tag: noindex, nofollow
 
+/event-culture/*
+  X-Robots-Tag: noindex, nofollow
+
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
@@ -489,17 +495,20 @@ await mkdir(path.join(distDir, "assets"), { recursive: true });
 await mkdir(path.join(distDir, "assets/themes"), { recursive: true });
 await mkdir(path.join(distDir, "editorial"), { recursive: true });
 await mkdir(path.join(distDir, "igaming"), { recursive: true });
+await mkdir(path.join(distDir, "event-culture"), { recursive: true });
 await cp(path.join(projectRoot, "src/assets/images"), path.join(distDir, "assets/images"), { recursive: true });
 await copyFile(path.join(projectRoot, "src/styles.css"), path.join(distDir, "assets/styles.css"));
 await copyFile(path.join(projectRoot, "src/script.js"), path.join(distDir, "assets/script.js"));
 await copyFile(path.join(projectRoot, "src/themes/editorial.css"), path.join(distDir, "assets/themes/editorial.css"));
 await copyFile(path.join(projectRoot, "src/themes/igaming.css"), path.join(distDir, "assets/themes/igaming.css"));
+await copyFile(path.join(projectRoot, "src/themes/event-culture.css"), path.join(distDir, "assets/themes/event-culture.css"));
 await copyFile(path.join(projectRoot, "src/favicon.svg"), path.join(distDir, "favicon.svg"));
 await copyFile(path.join(projectRoot, "src/apple-touch-icon.png"), path.join(distDir, "apple-touch-icon.png"));
 await Promise.all([
   writeFile(path.join(distDir, "index.html"), html),
   writeFile(path.join(distDir, "editorial/index.html"), editorialHtml),
   writeFile(path.join(distDir, "igaming/index.html"), igamingHtml),
+  writeFile(path.join(distDir, "event-culture/index.html"), eventCultureHtml),
   writeFile(path.join(distDir, "404.html"), notFoundHtml),
   writeFile(path.join(distDir, "robots.txt"), robots),
   writeFile(path.join(distDir, "sitemap.xml"), sitemap),

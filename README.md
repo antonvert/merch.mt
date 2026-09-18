@@ -8,6 +8,7 @@ One-page, SEO-first lead-generation website for international teams ordering eve
 - `src/styles.css` — complete responsive design system
 - `src/themes/editorial.css` — Concept B, the light editorial art direction
 - `src/themes/igaming.css` — Concept C, the dark iGaming event-tech art direction
+- `src/themes/event-culture.css` — Concept D, the editorial × event-tech hybrid art direction
 - `src/script.js` — navigation, analytics events and lead form states
 - `src/assets/images` — optimized WebP project photography
 - `src/_worker.js` — Cloudflare Worker for lead validation, delivery and static assets
@@ -30,8 +31,9 @@ Three visual concepts are generated from the same content and markup:
 - `/` — Concept A / Base
 - `/editorial/` — Concept B / Editorial Merch
 - `/igaming/` — Concept C / iGaming Event Tech
+- `/event-culture/` — Concept D / Event Culture
 
-The two comparison variants include `noindex,nofollow`, share the production canonical, and are intentionally excluded from the sitemap.
+The three comparison variants include `noindex,nofollow`, share the production canonical, and are intentionally excluded from the sitemap.
 
 ## Lead delivery configuration
 

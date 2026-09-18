@@ -5,6 +5,7 @@ const root = process.cwd();
 const html = await readFile(path.join(root, "dist/index.html"), "utf8");
 const editorialHtml = await readFile(path.join(root, "dist/editorial/index.html"), "utf8");
 const igamingHtml = await readFile(path.join(root, "dist/igaming/index.html"), "utf8");
+const eventCultureHtml = await readFile(path.join(root, "dist/event-culture/index.html"), "utf8");
 const failures = [];
 
 const count = (pattern) => (html.match(pattern) || []).length;
@@ -21,7 +22,8 @@ if (html.includes('content="noindex,nofollow"')) failures.push("The base concept
 
 for (const [name, variantHtml] of [
   ["Editorial", editorialHtml],
-  ["iGaming", igamingHtml]
+  ["iGaming", igamingHtml],
+  ["Event Culture", eventCultureHtml]
 ]) {
   if ((variantHtml.match(/<h1\b/g) || []).length !== 1) failures.push(`${name} must contain exactly one H1.`);
   if (!variantHtml.includes('<meta name="robots" content="noindex,nofollow">')) {
@@ -32,14 +34,15 @@ for (const [name, variantHtml] of [
   }
   if (!variantHtml.includes('type="application/ld+json"')) failures.push(`${name} structured data is missing.`);
   if (!variantHtml.includes('action="/api/lead"')) failures.push(`${name} lead form endpoint is missing.`);
-  if (!variantHtml.includes(`/assets/themes/${name.toLowerCase()}.css`)) failures.push(`${name} theme stylesheet is missing.`);
+  const themeSlug = name.toLowerCase().replaceAll(" ", "-");
+  if (!variantHtml.includes(`/assets/themes/${themeSlug}.css`)) failures.push(`${name} theme stylesheet is missing.`);
   for (const text of ["Your Merch Partner in Malta", "SiGMA Europe Malta", "SBC Summit Malta", "NEXT Summit Valletta"]) {
     if (!variantHtml.includes(text)) failures.push(`${name} is missing shared content: ${text}`);
   }
 }
 
 const sitemap = await readFile(path.join(root, "dist/sitemap.xml"), "utf8");
-if (sitemap.includes("/editorial/") || sitemap.includes("/igaming/")) {
+if (sitemap.includes("/editorial/") || sitemap.includes("/igaming/") || sitemap.includes("/event-culture/")) {
   failures.push("Noindex variants must not appear in the sitemap.");
 }
 
@@ -57,4 +60,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Checks passed: base, Editorial and iGaming variants share content, metadata, schema and form behavior.`);
+console.log(`Checks passed: all four concepts share content, metadata, schema and form behavior.`);
