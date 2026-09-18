@@ -1259,14 +1259,6 @@ h1 {
 }
 
 @media (max-width: 1120px) {
-  .site-header {
-    grid-template-columns: 1fr auto;
-  }
-
-  .desktop-nav {
-    display: none;
-  }
-
   .hero {
     grid-template-columns: minmax(0, 1fr) minmax(300px, 0.72fr);
     padding: 132px clamp(38px, 5vw, 65px) clamp(38px, 5vw, 65px);
@@ -1290,6 +1282,16 @@ h1 {
 
   .step-card:nth-child(n + 4) {
     border-top: 0;
+  }
+}
+
+@media (max-width: 940px) {
+  .site-header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .desktop-nav {
+    display: none;
   }
 }
 
