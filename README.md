@@ -6,6 +6,8 @@ One-page, SEO-first lead-generation website for international teams ordering eve
 
 - `src/content.mjs` — editable copy, conferences, categories, FAQ, project gallery and contact details
 - `src/styles.css` — complete responsive design system
+- `src/themes/editorial.css` — Concept B, the light editorial art direction
+- `src/themes/igaming.css` — Concept C, the dark iGaming event-tech art direction
 - `src/script.js` — navigation, analytics events and lead form states
 - `src/assets/images` — optimized WebP project photography
 - `src/_worker.js` — Cloudflare Worker for lead validation, delivery and static assets
@@ -22,6 +24,14 @@ npm run dev
 ```
 
 The local Cloudflare preview includes the form function. Without a configured destination, the form intentionally shows a clear preview-mode message and directs the visitor to Telegram or email.
+
+Three visual concepts are generated from the same content and markup:
+
+- `/` — Concept A / Base
+- `/editorial/` — Concept B / Editorial Merch
+- `/igaming/` — Concept C / iGaming Event Tech
+
+The two comparison variants include `noindex,nofollow`, share the production canonical, and are intentionally excluded from the sitemap.
 
 ## Lead delivery configuration
 

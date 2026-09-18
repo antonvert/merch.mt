@@ -16,13 +16,17 @@ import {
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = path.join(projectRoot, "dist");
-const [stylesSource, scriptSource] = await Promise.all([
+const [stylesSource, scriptSource, editorialStylesSource, igamingStylesSource] = await Promise.all([
   readFile(path.join(projectRoot, "src/styles.css")),
-  readFile(path.join(projectRoot, "src/script.js"))
+  readFile(path.join(projectRoot, "src/script.js")),
+  readFile(path.join(projectRoot, "src/themes/editorial.css")),
+  readFile(path.join(projectRoot, "src/themes/igaming.css"))
 ]);
 const assetVersion = createHash("sha256")
   .update(stylesSource)
   .update(scriptSource)
+  .update(editorialStylesSource)
+  .update(igamingStylesSource)
   .digest("hex")
   .slice(0, 10);
 
@@ -203,7 +207,7 @@ const html = `<!doctype html>
   <link rel="stylesheet" href="/assets/styles.css?v=${assetVersion}">
   <script type="application/ld+json">${JSON.stringify(structuredData)}</script>
 </head>
-<body>
+<body class="theme-base" data-theme="base">
   <a class="skip-link" href="#main">Skip to content</a>
   <main id="main">
     <section class="hero" id="top">
@@ -412,6 +416,24 @@ const html = `<!doctype html>
 </body>
 </html>`;
 
+const renderVariant = ({ theme, themeColor }) =>
+  html
+    .replace(
+      '<meta name="theme-color" content="#2538cf">',
+      `<meta name="theme-color" content="${themeColor}">\n  <meta name="robots" content="noindex,nofollow">`
+    )
+    .replace(
+      `<link rel="stylesheet" href="/assets/styles.css?v=${assetVersion}">`,
+      `<link rel="stylesheet" href="/assets/styles.css?v=${assetVersion}">\n  <link rel="stylesheet" href="/assets/themes/${theme}.css?v=${assetVersion}">`
+    )
+    .replace(
+      '<body class="theme-base" data-theme="base">',
+      `<body class="theme-${theme}" data-theme="${theme}">`
+    );
+
+const editorialHtml = renderVariant({ theme: "editorial", themeColor: "#f5f3ee" });
+const igamingHtml = renderVariant({ theme: "igaming", themeColor: "#07090e" });
+
 const notFoundHtml = `<!doctype html>
 <html lang="en">
 <head>
@@ -449,6 +471,12 @@ const headers = `/*
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
 
+/editorial/*
+  X-Robots-Tag: noindex, nofollow
+
+/igaming/*
+  X-Robots-Tag: noindex, nofollow
+
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
@@ -458,13 +486,20 @@ const headers = `/*
 
 await rm(distDir, { recursive: true, force: true });
 await mkdir(path.join(distDir, "assets"), { recursive: true });
+await mkdir(path.join(distDir, "assets/themes"), { recursive: true });
+await mkdir(path.join(distDir, "editorial"), { recursive: true });
+await mkdir(path.join(distDir, "igaming"), { recursive: true });
 await cp(path.join(projectRoot, "src/assets/images"), path.join(distDir, "assets/images"), { recursive: true });
 await copyFile(path.join(projectRoot, "src/styles.css"), path.join(distDir, "assets/styles.css"));
 await copyFile(path.join(projectRoot, "src/script.js"), path.join(distDir, "assets/script.js"));
+await copyFile(path.join(projectRoot, "src/themes/editorial.css"), path.join(distDir, "assets/themes/editorial.css"));
+await copyFile(path.join(projectRoot, "src/themes/igaming.css"), path.join(distDir, "assets/themes/igaming.css"));
 await copyFile(path.join(projectRoot, "src/favicon.svg"), path.join(distDir, "favicon.svg"));
 await copyFile(path.join(projectRoot, "src/apple-touch-icon.png"), path.join(distDir, "apple-touch-icon.png"));
 await Promise.all([
   writeFile(path.join(distDir, "index.html"), html),
+  writeFile(path.join(distDir, "editorial/index.html"), editorialHtml),
+  writeFile(path.join(distDir, "igaming/index.html"), igamingHtml),
   writeFile(path.join(distDir, "404.html"), notFoundHtml),
   writeFile(path.join(distDir, "robots.txt"), robots),
   writeFile(path.join(distDir, "sitemap.xml"), sitemap),
