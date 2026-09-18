@@ -16,12 +16,13 @@ import {
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = path.join(projectRoot, "dist");
-const [stylesSource, scriptSource, editorialStylesSource, igamingStylesSource, eventCultureStylesSource] = await Promise.all([
+const [stylesSource, scriptSource, editorialStylesSource, igamingStylesSource, eventCultureStylesSource, productionStylesSource] = await Promise.all([
   readFile(path.join(projectRoot, "src/styles.css")),
   readFile(path.join(projectRoot, "src/script.js")),
   readFile(path.join(projectRoot, "src/themes/editorial.css")),
   readFile(path.join(projectRoot, "src/themes/igaming.css")),
-  readFile(path.join(projectRoot, "src/themes/event-culture.css"))
+  readFile(path.join(projectRoot, "src/themes/event-culture.css")),
+  readFile(path.join(projectRoot, "src/themes/production.css"))
 ]);
 const assetVersion = createHash("sha256")
   .update(stylesSource)
@@ -29,6 +30,7 @@ const assetVersion = createHash("sha256")
   .update(editorialStylesSource)
   .update(igamingStylesSource)
   .update(eventCultureStylesSource)
+  .update(productionStylesSource)
   .digest("hex")
   .slice(0, 10);
 
@@ -84,7 +86,7 @@ const galleryCards = gallery
   .map(
     (item, index) => `
       <figure class="gallery-card ${item.className}" data-gallery-item>
-        ${picture({ image: item.image, alt: item.alt, eager: index === 0 })}
+        ${picture({ image: item.image, alt: item.alt, eager: index === 0 }).trim()}
         <figcaption>
           <strong>${escapeHtml(item.client)}</strong>
           <span>${escapeHtml(item.type)}</span>
@@ -436,6 +438,12 @@ const renderVariant = ({ theme, themeColor }) =>
 const editorialHtml = renderVariant({ theme: "editorial", themeColor: "#f5f3ee" });
 const igamingHtml = renderVariant({ theme: "igaming", themeColor: "#07090e" });
 const eventCultureHtml = renderVariant({ theme: "event-culture", themeColor: "#090b10" });
+const productionHtml = renderVariant({ theme: "production", themeColor: "#f5f4f0" })
+  .replace("Send your brief on Telegram", "Send Your Brief")
+  .replace(
+    "<h2>Need merch for an event?<br>We’ll handle it.</h2>",
+    "<h2>You focus on the event.<br>We handle the merch.</h2>"
+  );
 
 const notFoundHtml = `<!doctype html>
 <html lang="en">
@@ -483,6 +491,9 @@ const headers = `/*
 /event-culture/*
   X-Robots-Tag: noindex, nofollow
 
+/production/*
+  X-Robots-Tag: noindex, nofollow
+
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
@@ -496,12 +507,14 @@ await mkdir(path.join(distDir, "assets/themes"), { recursive: true });
 await mkdir(path.join(distDir, "editorial"), { recursive: true });
 await mkdir(path.join(distDir, "igaming"), { recursive: true });
 await mkdir(path.join(distDir, "event-culture"), { recursive: true });
+await mkdir(path.join(distDir, "production"), { recursive: true });
 await cp(path.join(projectRoot, "src/assets/images"), path.join(distDir, "assets/images"), { recursive: true });
 await copyFile(path.join(projectRoot, "src/styles.css"), path.join(distDir, "assets/styles.css"));
 await copyFile(path.join(projectRoot, "src/script.js"), path.join(distDir, "assets/script.js"));
 await copyFile(path.join(projectRoot, "src/themes/editorial.css"), path.join(distDir, "assets/themes/editorial.css"));
 await copyFile(path.join(projectRoot, "src/themes/igaming.css"), path.join(distDir, "assets/themes/igaming.css"));
 await copyFile(path.join(projectRoot, "src/themes/event-culture.css"), path.join(distDir, "assets/themes/event-culture.css"));
+await copyFile(path.join(projectRoot, "src/themes/production.css"), path.join(distDir, "assets/themes/production.css"));
 await copyFile(path.join(projectRoot, "src/favicon.svg"), path.join(distDir, "favicon.svg"));
 await copyFile(path.join(projectRoot, "src/apple-touch-icon.png"), path.join(distDir, "apple-touch-icon.png"));
 await Promise.all([
@@ -509,6 +522,7 @@ await Promise.all([
   writeFile(path.join(distDir, "editorial/index.html"), editorialHtml),
   writeFile(path.join(distDir, "igaming/index.html"), igamingHtml),
   writeFile(path.join(distDir, "event-culture/index.html"), eventCultureHtml),
+  writeFile(path.join(distDir, "production/index.html"), productionHtml),
   writeFile(path.join(distDir, "404.html"), notFoundHtml),
   writeFile(path.join(distDir, "robots.txt"), robots),
   writeFile(path.join(distDir, "sitemap.xml"), sitemap),

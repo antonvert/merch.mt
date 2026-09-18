@@ -118,6 +118,13 @@ export const gallery = [
     className: ""
   },
   {
+    image: "convert-it-event-giveaway",
+    alt: "Convert It branded event giveaway photographed at a conference venue",
+    client: "Convert It",
+    type: "Event giveaway",
+    className: "gallery-card--tall"
+  },
+  {
     image: "unlim-event-materials",
     alt: "UNLIM branded event materials and water bottle",
     client: "UNLIM",

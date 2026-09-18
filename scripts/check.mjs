@@ -6,6 +6,7 @@ const html = await readFile(path.join(root, "dist/index.html"), "utf8");
 const editorialHtml = await readFile(path.join(root, "dist/editorial/index.html"), "utf8");
 const igamingHtml = await readFile(path.join(root, "dist/igaming/index.html"), "utf8");
 const eventCultureHtml = await readFile(path.join(root, "dist/event-culture/index.html"), "utf8");
+const productionHtml = await readFile(path.join(root, "dist/production/index.html"), "utf8");
 const failures = [];
 
 const count = (pattern) => (html.match(pattern) || []).length;
@@ -23,7 +24,8 @@ if (html.includes('content="noindex,nofollow"')) failures.push("The base concept
 for (const [name, variantHtml] of [
   ["Editorial", editorialHtml],
   ["iGaming", igamingHtml],
-  ["Event Culture", eventCultureHtml]
+  ["Event Culture", eventCultureHtml],
+  ["Production", productionHtml]
 ]) {
   if ((variantHtml.match(/<h1\b/g) || []).length !== 1) failures.push(`${name} must contain exactly one H1.`);
   if (!variantHtml.includes('<meta name="robots" content="noindex,nofollow">')) {
@@ -42,7 +44,7 @@ for (const [name, variantHtml] of [
 }
 
 const sitemap = await readFile(path.join(root, "dist/sitemap.xml"), "utf8");
-if (sitemap.includes("/editorial/") || sitemap.includes("/igaming/") || sitemap.includes("/event-culture/")) {
+if (sitemap.includes("/editorial/") || sitemap.includes("/igaming/") || sitemap.includes("/event-culture/") || sitemap.includes("/production/")) {
   failures.push("Noindex variants must not appear in the sitemap.");
 }
 
@@ -60,4 +62,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Checks passed: all four concepts share content, metadata, schema and form behavior.`);
+console.log(`Checks passed: the base site and four review variants share content, metadata, schema and form behavior.`);
