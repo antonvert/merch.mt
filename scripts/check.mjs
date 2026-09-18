@@ -65,6 +65,38 @@ for (const [name, variantHtml] of [
   }
 }
 
+const productionCount = (pattern) => (productionHtml.match(pattern) || []).length;
+if (productionCount(/<h2\b/g) !== 6) failures.push("Production must contain exactly six H2 sections.");
+if (productionCount(/class="production-proof__card"/g) !== 6) {
+  failures.push("Production proof gallery must contain exactly six projects.");
+}
+if (productionCount(/class="category-card"/g) !== 6) {
+  failures.push("Production merchandise section must contain exactly six categories.");
+}
+if (productionCount(/class="benefit-card"/g) !== 4) {
+  failures.push("Production operations scene must contain exactly four benefits.");
+}
+if (productionCount(/class="timeline__item/g) !== 3) {
+  failures.push("Production operations scene must contain exactly three lead-time rows.");
+}
+if (productionCount(/data-observe-event="project_gallery_view"/g) !== 1) {
+  failures.push("Production must contain exactly one project gallery.");
+}
+if (productionCount(/class="faq-item"/g) !== 6 || productionCount(/<details[^>]*\sopen(?:\s|>)/g) !== 0) {
+  failures.push("Production FAQ must contain six collapsed questions.");
+}
+for (const requiredClass of ["merch-process-line", "production-event-scene", "production-ops-scene", "production-process-line"]) {
+  if (!productionHtml.includes(`class="${requiredClass}`)) {
+    failures.push(`Production compact scene is missing: ${requiredClass}`);
+  }
+}
+for (const removedCopy of ["More real work.", "You focus on the event.", "Built with iGaming pace."]) {
+  if (productionHtml.includes(removedCopy)) failures.push(`Production still contains removed duplicate scene: ${removedCopy}`);
+}
+for (const anchor of ['id="projects"', 'id="merchandise"', 'id="conferences"', 'id="process"', 'id="quote"']) {
+  if (!productionHtml.includes(anchor)) failures.push(`Production navigation anchor is missing: ${anchor}`);
+}
+
 const sitemap = await readFile(path.join(root, "dist/sitemap.xml"), "utf8");
 if (sitemap.includes("/editorial/") || sitemap.includes("/igaming/") || sitemap.includes("/event-culture/") || sitemap.includes("/production/")) {
   failures.push("Noindex variants must not appear in the sitemap.");

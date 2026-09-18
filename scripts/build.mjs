@@ -95,7 +95,7 @@ const galleryCards = gallery
   )
   .join("");
 
-const productionProofIndexes = [0, 1, 3, 8];
+const productionProofIndexes = [0, 1, 3, 8, 7, 5];
 const productionProofCards = productionProofIndexes
   .map((index) => {
     const item = gallery[index];
@@ -108,7 +108,7 @@ const productionProofCards = productionProofIndexes
   .join("");
 
 const productionProofSection = `
-    <section class="production-proof" data-observe-event="project_gallery_view">
+    <section class="production-proof" id="projects" data-observe-event="project_gallery_view">
       <div class="production-proof__heading">
         <div>
           <p class="eyebrow eyebrow--dark"><span></span> Selected work</p>
@@ -119,6 +119,19 @@ const productionProofSection = `
       <div class="production-proof__grid">${productionProofCards}</div>
     </section>`;
 
+const productionMerchProcess = `
+      <div class="merch-process-line" aria-label="Merchandise production process">
+        <span>Sourcing</span><b>→</b><span>Branding</span><b>→</b><span>Production</span><b>→</b><span>Quality control</span><b>→</b><span>Delivery</span>
+      </div>`;
+
+const productionOpsProcess = `
+    <ol class="production-process-line" aria-label="From brief to Malta">
+      <li>Brief</li>
+      <li>Approval</li>
+      <li>Production</li>
+      <li>Delivery</li>
+    </ol>`;
+
 const benefitCards = benefits
   .map(
     ([title, description], index) => `
@@ -128,6 +141,18 @@ const benefitCards = benefits
         <p>${escapeHtml(description)}</p>
       </article>`
   )
+  .join("");
+
+const productionBenefitCards = [1, 2, 3, 5]
+  .map((benefitIndex, displayIndex) => {
+    const [title, description] = benefits[benefitIndex];
+    return `
+      <article class="benefit-card">
+        <span>${String(displayIndex + 1).padStart(2, "0")}</span>
+        <h3>${escapeHtml(title)}</h3>
+        <p>${escapeHtml(description)}</p>
+      </article>`;
+  })
   .join("");
 
 const stepCards = steps
@@ -145,8 +170,8 @@ const stepCards = steps
 
 const faqItems = faqs
   .map(
-    (item, index) => `
-      <details class="faq-item" ${index === 0 ? "open" : ""}>
+    (item) => `
+      <details class="faq-item">
         <summary>${escapeHtml(item.question)}<span aria-hidden="true"></span></summary>
         <p>${escapeHtml(item.answer)}</p>
       </details>`
@@ -474,36 +499,59 @@ const igamingHtml = renderVariant({ theme: "igaming", themeColor: "#07090e" });
 const eventCultureHtml = renderVariant({ theme: "event-culture", themeColor: "#090b10" });
 const productionHtml = renderVariant({ theme: "production", themeColor: "#f5f4f0" })
   .replace("Send your brief on Telegram", "Send Your Brief")
-  .replace("<h2>Real merchandise.<br>Real events.</h2>", "<h2>More real work.</h2>")
   .replace(
     '    </section>\n\n    <section class="marquee" aria-label="Service summary">',
     `    </section>\n${productionProofSection}\n\n    <section class="marquee" aria-label="Service summary">`
   )
   .replace(
-    '<section class="marquee" aria-label="Service summary">\n      <div>',
-    '<section class="marquee" aria-label="Service summary">\n      <h2>You focus on the event. We handle the merch.</h2>\n      <div>'
+    /\n    <section class="marquee" aria-label="Service summary">[\s\S]*?<\/section>/,
+    ""
   )
   .replace(
     /\n    <section class="section intro-section">[\s\S]*?<\/section>\n\n    <section class="section section--tint" id="merchandise">/,
     '\n\n    <section class="section section--tint" id="merchandise">'
   )
+  .replace(
+    '        <p>Tell us what needs to happen at your booth, meeting or side event. We will shape the product mix around that job.</p>\n      </div>\n      <div class="category-grid">',
+    `        <p>Tell us what needs to happen at your booth, meeting or side event. We will shape the product mix around that job.</p>\n      </div>\n${productionMerchProcess}\n      <div class="category-grid">`
+  )
   .replace("Ready for Malta's biggest conferences.", "Built for Malta's event circuit.")
+  .replace(
+    "iGaming conference merchandise for international teams, sponsors and B2B exhibitors arriving with a full schedule—and no desire to travel with boxes.",
+    "iGaming conference merchandise for international teams, sponsors and B2B exhibitors—without travelling with boxes."
+  )
   .replace(
     '<section class="section conferences-section" id="conferences" data-observe-event="conference_section_view">',
     '<div class="production-event-scene">\n    <section class="section conferences-section" id="conferences" data-observe-event="conference_section_view">'
+  )
+  .replace(
+    /\n      <div class="industries-section__copy">[\s\S]*?<\/div>/,
+    ""
   )
   .replace(
     '</ul>\n    </section>\n\n    <section class="section projects-section"',
     '</ul>\n    </section>\n    </div>\n\n    <section class="section projects-section"'
   )
   .replace(
+    /\n    <section class="section projects-section"[\s\S]*?<\/section>\n\n    <section class="section section--ink benefits-section">/,
+    '\n\n    <section class="section section--ink benefits-section">'
+  )
+  .replace(
     '<section class="section section--ink benefits-section">',
-    '<div class="production-ops-scene">\n    <section class="section section--ink benefits-section">'
+    '<div class="production-ops-scene" id="process">\n    <section class="section section--ink benefits-section">'
   )
   .replace("Arrive in Malta with one less thing to worry about.", "From brief to Malta.")
   .replace(
-    '</ol>\n    </section>\n\n    <section class="section faq-section">',
-    '</ol>\n    </section>\n    </div>\n\n    <section class="section faq-section">'
+    /<div class="benefit-grid">[\s\S]*?<\/div>\n    <\/section>/,
+    `<div class="benefit-grid">${productionBenefitCards}</div>\n    </section>`
+  )
+  .replace(
+    '        <h2>Order early.<br>Arrive stress-free.</h2>\n        <p>Earlier is better for choice and planning. At three weeks we are already moving fast. Two weeks or less is possible only after an individual check.</p>\n',
+    ""
+  )
+  .replace(
+    /\n    <section class="section process-section"[\s\S]*?<\/section>\n\n    <section class="section faq-section">/,
+    `\n${productionOpsProcess}\n    </div>\n\n    <section class="section faq-section">`
   );
 
 const notFoundHtml = `<!doctype html>

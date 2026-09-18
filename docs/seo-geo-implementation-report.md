@@ -1,7 +1,8 @@
 # merch.mt SEO & GEO Implementation Report
 
 **Report basis:** actual generated production candidate and source code, not the original specification  
-**Code version reviewed:** `4756d0e`  
+**Code version reviewed:** current production source after the 18 September visual-compression pass
+
 **Review date:** 18 September 2026  
 **Current preview:** `https://merch-mt-preview.kg-758.workers.dev/production/`  
 **Intended production URL:** `https://merch.mt/`
@@ -17,7 +18,7 @@ The page has useful coverage for four commercial search areas:
 3. named Malta conferences such as SiGMA, SBC and NEXT;
 4. practical questions about ordering, timing and delivery.
 
-The strongest current SEO/GEO assets are the explicit service wording, named conference coverage, eight useful FAQs, real project photography and structured `Service` and `FAQPage` data.
+The strongest current SEO/GEO assets are the explicit service wording, named conference coverage, six useful FAQs, a single focused gallery of real project photography and structured `Service` and `FAQPage` data.
 
 Three launch-critical limitations remain:
 
@@ -36,7 +37,7 @@ The table below connects each target search intent to the content and technical 
 | **Primary commercial intent** | `event merchandise Malta`, `conference merchandise Malta`, `merchandise Malta`, `branded merchandise Malta`, `promotional products Malta` | Metadata, Hero, What we produce, final CTA, footer | Hero eyebrow: **“Event merchandise for conferences in Malta”**; H1: **“Your Merch Partner in Malta”**; Hero text: **“Need branded merchandise for an event in Malta?”**; category text includes **“Conference giveaways and promotional products”**; final CTA offers **“conference giveaways, branded merchandise or promotional products for your Malta event”** | Exact title and description target Malta commercial terms. Canonical is `https://merch.mt/`. Automated build checks protect title length, description length and required semantic topics. | `WebPage` describes branded event merchandise and promotional products. `Service` lists Event merchandise, Conference merchandise, Branded merchandise and Promotional products, with Malta as `areaServed`. | Google Search Console queries, impressions, clicks, CTR and average position; GA4 organic landing sessions; `hero_cta_click`, `header_cta_click`, `form_start`, `form_submit`, `telegram_click`, `email_click`; lead destination/CRM after it is connected. |
 | **Event-specific commercial intent** | `merch for event Malta`, `conference giveaways Malta`, `event giveaways Malta`, `merch supplier Malta` | Hero, Event Giveaways category, FAQ, CTA | **“Need branded merchandise for an event in Malta?”**; H3: **“Event Giveaways”**; FAQ: **“Are you a merchandise supplier in Malta?”**; FAQ: **“What kind of event merchandise can you produce?”**; CTA H2: **“Need merch for an event in Malta?”** | Terms are placed in visible service copy rather than a `meta keywords` tag. The page is English (`lang="en"`) and uses one canonical destination. | `Service.audience` identifies exhibitors, sponsors and international event teams. `FAQPage` contains the supplier, product and ordering questions. | Search Console filters for `event`, `giveaway`, `supplier`, `merch` plus `Malta`; GA4 organic sessions and lead events; form field “Which event are you attending?” once form delivery is live. |
 | **Secondary / iGaming intent** | `iGaming merchandise Malta`, `iGaming merch Malta`, `iGaming conference merchandise` | Hero project caption, Malta event circuit dark section, industry list | Hero proof caption: **“Conference gifts for an iGaming team”**; event-circuit text: **“iGaming conference merchandise for international teams, sponsors and B2B exhibitors…”**; industry list leads with **“PRIMARY / iGaming”** | The phrase “iGaming conference merchandise” is protected by the automated SEO content check. The visual section groups iGaming with Malta’s wider B2B event circuit. | `Service.description` includes iGaming merchandise. `Service.serviceType` includes **“iGaming conference merchandise”**. | Search Console query regex containing `igaming`; GA4 organic landing sessions; `conference_section_view`, `project_gallery_view`; qualified lead/event-name data after form delivery is connected. |
-| **Conference long-tail intent** | `SiGMA Malta merchandise`, `merchandise for SiGMA Malta`, `SBC Malta merchandise`, `NEXT Valletta merchandise` | Malta event circuit cards and FAQ | H2: **“Built for Malta's event circuit.”**; H3s: **“SiGMA Europe Malta”**, **“SBC Summit Malta”**, **“NEXT Summit Valletta”**; descriptions use the exact phrases **“SiGMA Malta merchandise”**, **“SBC Malta merchandise”** and **“NEXT Valletta merchandise”**; FAQs cover SiGMA, SBC and NEXT | Named events are present in visible text. A disclaimer states that merch.mt and SWAGGY are not presented as official suppliers or partners. The current single-page architecture does not yet provide separate event URLs. | `FAQPage` includes a SiGMA question and a combined SBC/NEXT question. The general `Service` schema remains the provider entity; no false event-partner schema is used. | Search Console query filters by `sigma`, `sbc`, `next`, `valletta`; GA4 organic sessions and `conference_section_view`; conference name in the lead form. `conference_cta_click` is instrumented in HTML but its links are visually hidden in the current production theme. |
+| **Conference long-tail intent** | `SiGMA Malta merchandise`, `merchandise for SiGMA Malta`, `SBC Malta merchandise`, `NEXT Valletta merchandise` | Malta event circuit cards and FAQ | H2: **“Built for Malta's event circuit.”**; H3s: **“SiGMA Europe Malta”**, **“SBC Summit Malta”**, **“NEXT Summit Valletta”**; descriptions use the exact phrases **“SiGMA Malta merchandise”**, **“SBC Malta merchandise”** and **“NEXT Valletta merchandise”**; one FAQ explicitly covers all three events | Named events are present in visible text. A disclaimer states that merch.mt and SWAGGY are not presented as official suppliers or partners. The current single-page architecture does not yet provide separate event URLs. | `FAQPage` includes one combined SiGMA/SBC/NEXT question. The general `Service` schema remains the provider entity; no false event-partner schema is used. | Search Console query filters by `sigma`, `sbc`, `next`, `valletta`; GA4 organic sessions and `conference_section_view`; conference name in the lead form. `conference_cta_click` remains in shared HTML but its links are visually hidden in the current production theme. |
 | **Problem-based / query intent** | `merchandise delivery to conference Malta`, `order merch for Malta event`, `merchandise delivered to Malta venue`, urgent merch queries | Hero, From brief to Malta, timeline, process, FAQ, final CTA | Hero promises delivery to **“your booth or hotel room”**; H2: **“From brief to Malta.”**; visible benefits state **“EU production”**, **“Delivery where you need it”**, **“One point of contact”** and **“Less event-week stress”**; timeline states 4+ weeks, 3 weeks and 2 weeks or less; FAQ: **“Can you deliver merchandise to a conference venue or hotel in Malta?”** and **“How do I order merch for a Malta event?”** | Delivery wording is repeated across visible copy, FAQ, footer and metadata without claiming local Maltese production. The form collects event, date, quantity, need, budget and message. | `Service.areaServed` is Malta. `FAQPage` states delivery destinations, EU production, urgency conditions and the ordering process. | Search Console filters for `deliver`, `delivery`, `venue`, `hotel`, `order`, `urgent`, `how`; GA4 `timeline_cta_click`, `form_start`, `form_submit`, Telegram/email clicks; lead fields for event date, quantity and need. |
 
 ## 2. Keyword and intention clusters
@@ -49,7 +50,7 @@ The primary cluster is the broad commercial market: companies looking for event 
 
 - Malta and the service category appear together in the title, description and Hero eyebrow.
 - The H1 remains brand-led and readable rather than becoming a keyword list.
-- The product section covers giveaways, apparel, client gifts, VIP gifts, welcome kits and custom merchandise.
+- The product section covers six compact categories: giveaways, team merch, apparel/textile, client gifts, combined VIP/welcome kits and custom event merchandise.
 - The final CTA repeats the commercial offer at the decision point.
 
 **Current limitation**
@@ -58,7 +59,7 @@ All commercial topics currently resolve to one page. This is appropriate before 
 
 ### Secondary / iGaming cluster
 
-The iGaming cluster is deliberately secondary rather than the whole brand position. The page says that the service is built with iGaming pace while still serving FinTech, Crypto, Gaming, Tech, Finance, SaaS, Startups and MedTech.
+The iGaming cluster is deliberately secondary rather than the whole brand position. The combined Malta event-circuit scene labels iGaming as the primary vertical while still naming FinTech, Crypto, Gaming, Tech, Finance, SaaS, Startups and MedTech.
 
 **Current strengths**
 
@@ -172,24 +173,17 @@ The preview variants `/editorial/`, `/igaming/`, `/event-culture/` and `/product
 
 ### Exact H1/H2 structure
 
-The production HTML has one H1 and eleven H2 elements.
+The production HTML has one H1 and six H2 elements. Every H1/H2 is visible; no SEO heading is hidden with CSS.
 
-| Level | Exact heading | Visible in current production design? | Purpose |
-| --- | --- | --- | --- |
-| H1 | `Your Merch Partner in Malta` | Yes | Main brand and service position |
-| H2 | `Real merchandise. Real events.` | Yes | Immediate proof section |
-| H2 | `You focus on the event. We handle the merch.` | Yes | Compact service process promise |
-| H2 | `Merchandise built around the event—not a catalogue.` | Yes | Product/category framing |
-| H2 | `Built for Malta's event circuit.` | Yes | Malta event and conference relevance |
-| H2 | `Built with iGaming pace. Ready for every B2B crowd.` | **No — hidden by production CSS** | Remains in DOM from shared markup; the visible section uses the iGaming list and conference copy instead |
-| H2 | `More real work.` | Yes | Additional project gallery |
-| H2 | `From brief to Malta.` | Yes | Benefits, production and delivery |
-| H2 | `Order early. Arrive stress-free.` | **No — hidden by production CSS** | The lead-time content remains visible without this heading |
-| H2 | `From brief to Malta in five clear steps.` | **No — hidden by production CSS** | The four compact process steps remain visible; the original shared heading is hidden |
-| H2 | `Useful answers before you brief us.` | Yes | FAQ section |
-| H2 | `Need merch for an event in Malta?` | Yes | Final lead-generation section |
-
-The visible hierarchy is clear, but three hidden shared H2s should not be treated as primary SEO evidence. If any of those topics become strategically important, the relevant wording should be made visible rather than relying on hidden DOM text.
+| Level | Exact heading | Purpose |
+| --- | --- | --- |
+| H1 | `Your Merch Partner in Malta` | Main brand and service position |
+| H2 | `Real merchandise. Real events.` | Immediate visual proof |
+| H2 | `Merchandise built around the event—not a catalogue.` | Product/category framing plus the sourcing-to-delivery process |
+| H2 | `Built for Malta's event circuit.` | SiGMA, SBC, NEXT, other Malta events and iGaming relevance in one scene |
+| H2 | `From brief to Malta.` | EU production, Malta delivery, lead time and the four-step process in one scene |
+| H2 | `Useful answers before you brief us.` | Six collapsed FAQ items |
+| H2 | `Need merch for an event in Malta?` | Final lead-generation section |
 
 ### Image ALT strategy
 
@@ -201,7 +195,7 @@ The current strategy is descriptive rather than keyword-stuffed:
 - no claim that a photograph was taken in Malta unless that is known;
 - decorative interface elements are text/CSS or marked `aria-hidden` rather than receiving artificial ALT copy.
 
-The production HTML contains 14 image elements and 10 unique ALT descriptions because selected proof images are reused later in the gallery.
+The production HTML contains seven image elements and seven ALT descriptions: one Hero image and six images in the only project gallery.
 
 **Exact unique ALT text**
 
@@ -210,18 +204,14 @@ The production HTML contains 14 image elements and 10 unique ALT descriptions be
 3. `Monolead branded socks, bottles and giveaways at a conference booth`
 4. `CryptoBoss merchandise kit with cap, bottle and notebook`
 5. `Adsterra branded drinkware and client gifts at a conference`
-6. `Blue and white branded notebooks produced for Silkair`
-7. `Convert It branded event giveaway photographed at a conference venue`
-8. `UNLIM branded event materials and water bottle`
-9. `Clickadu branded accessories prepared for a conference`
-10. `Custom e.pn branded textile displayed at an event`
+6. `Custom e.pn branded textile displayed at an event`
+7. `UNLIM branded event materials and water bottle`
 
 All project images use WebP files, include explicit width and height, and provide a 640-pixel mobile source. The Hero image is prioritized; gallery images are lazy-loaded. The social-sharing image has its own Open Graph ALT text.
 
 **Image semantic gaps**
 
-- Reused project photos repeat ALT text in the DOM.
-- The gallery currently offers captions but not full case-study pages with project scope, date, quantity, challenge and result.
+- The gallery offers captions but not full case-study pages with project scope, date, quantity, challenge and result.
 - No `ImageObject` structured data is present. This is optional, not a launch blocker.
 
 ## 4. Structured data currently implemented
@@ -234,7 +224,7 @@ The page contains one JSON-LD graph with five schema entities.
 | `WebSite` | The website name, publisher and English language. |
 | `WebPage` | The canonical page name, description, parent website and subject service. |
 | `Service` | Event/conference merchandise is the offered service; Malta is the service area; the categories include event, conference, branded, promotional and iGaming merchandise; the audience is exhibitors, sponsors and international event teams. |
-| `FAQPage` | Eight visible questions and answers covering lead time, delivery, named events, supplier model, urgent orders, product types and ordering. |
+| `FAQPage` | Six visible, collapsed questions and answers covering lead time (including urgent work), delivery, named events, supplier model, product types and ordering. |
 
 ### Exact current JSON-LD
 
@@ -310,7 +300,7 @@ The page contains one JSON-LD graph with five schema entities.
           "name": "How early should I order merchandise for an event in Malta?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Earlier than three weeks is best for product choice and smooth delivery. Around three weeks is already a rush timeline. Two weeks or less is assessed case by case, with fewer products and branding options available."
+            "text": "Four weeks or more gives the widest choice. Three weeks is fast-track. Two weeks or less, including urgent orders, is assessed case by case based on the product, branding and quantity."
           }
         },
         {
@@ -323,10 +313,10 @@ The page contains one JSON-LD graph with five schema entities.
         },
         {
           "@type": "Question",
-          "name": "Can you produce merchandise for SiGMA Malta?",
+          "name": "Can you produce merchandise for SiGMA, SBC or NEXT in Malta?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. We work with companies attending SiGMA Europe Malta and can produce conference giveaways, team apparel and client gifts for their participation. merch.mt and SWAGGY are not presented as official suppliers or partners of the event."
+            "text": "Yes. We produce SiGMA Malta merchandise, SBC Malta merchandise and NEXT Valletta merchandise for exhibitors, sponsors and international event teams. merch.mt and SWAGGY are not presented as official suppliers or partners of these events."
           }
         },
         {
@@ -335,14 +325,6 @@ The page contains one JSON-LD graph with five schema entities.
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "We are an EU production partner for companies attending events in Malta. We handle branding and quality control within the EU, then arrange merchandise delivery to your venue, booth or hotel in Malta."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can you handle urgent orders?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Sometimes. Rush production depends on the product, branding method, quantity and delivery date. Send us the details and we will tell you what is realistically possible."
           }
         },
         {
@@ -359,14 +341,6 @@ The page contains one JSON-LD graph with five schema entities.
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Send us the event name, date, audience, quantity and approximate budget. We will suggest branded merchandise that fits your booth, team, partners or clients, then coordinate production and delivery to Malta."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can you supply merchandise for SBC Malta or NEXT Summit Valletta?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. We can produce SBC Malta merchandise and NEXT Valletta merchandise for exhibitors, sponsors and international event teams, with delivery to an agreed location in Malta. We are not presented as an official supplier or partner of either event."
           }
         }
       ]
@@ -438,7 +412,7 @@ The frontend pushes the following named events to `window.dataLayer`:
 | `conference_section_view` | Malta conference section reaches the visibility threshold |
 | `conference_cta_click` | Event-card CTA click; instrumented in markup, but these links are hidden by the current production CSS |
 
-`project_gallery_view` fires only once per page session because the script deduplicates event names. It therefore does not distinguish the first proof block from the later full gallery.
+`project_gallery_view` now maps unambiguously to the page's only gallery: the six-project proof block immediately after the Hero.
 
 ### What is not active yet
 
@@ -471,7 +445,7 @@ Therefore the current page is **measurement-ready in principle**, but it is not 
 Keep the existing event names, with these refinements:
 
 - add `cta_location` to all CTA clicks (`header`, `hero`, `timeline`, `mobile_sticky`, `final`);
-- add `gallery_location` to distinguish `proof` from `full_projects`;
+- keep `project_gallery_view` tied to the single proof gallery; no gallery-location split is needed unless another gallery is added later;
 - rename the current form payload parameter `event_name` to `conference_name` to avoid confusion with GA4’s event-name concept;
 - pass `conference_name`, `quantity_band` and `budget_band` only after privacy review and without personal information;
 - record a backend or CRM confirmation so a click is distinguishable from a qualified lead;
@@ -569,7 +543,7 @@ This report was derived from the following current implementation files:
 
 - `src/content.mjs` — exact content, conference wording, FAQs and contact details;
 - `scripts/build.mjs` — metadata, canonical, robots generation, sitemap and JSON-LD;
-- `src/themes/production.css` — visible versus hidden production headings and CTAs;
+- `src/themes/production.css` — the visible production layout, responsive behavior and hidden shared conference-card CTAs;
 - `src/script.js` — `dataLayer` events and form conversion behavior;
 - `src/_worker.js` — form validation and delivery destinations;
 - `dist/production/index.html` — actual generated production-candidate HTML;
