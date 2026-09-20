@@ -31,15 +31,15 @@ npm run dev
 
 The local Cloudflare preview includes the form function. Without a configured destination, the form intentionally shows a clear preview-mode message and directs the visitor to Telegram or email.
 
-Three visual concepts are generated from the same content and markup:
+The approved production layout is generated at the site root:
 
-- `/` — Concept A / Base
-- `/editorial/` — Concept B / Editorial Merch
-- `/igaming/` — Concept C / iGaming Event Tech
-- `/event-culture/` — Concept D / Event Culture
-- `/production/` — consolidated production candidate
+- `/` — production homepage
+- `/production/` — noindex review mirror of the production homepage
+- `/editorial/` — noindex Editorial Merch reference
+- `/igaming/` — noindex iGaming Event Tech reference
+- `/event-culture/` — noindex Event Culture reference
 
-The three comparison routes and the production candidate include `noindex,nofollow`, share the production canonical, and are intentionally excluded from the sitemap while approval is in progress.
+All review routes share the production canonical and are intentionally excluded from the sitemap. In addition, the Cloudflare Worker adds a host-wide `X-Robots-Tag: noindex, nofollow` guard and a disallowing `robots.txt` on `*.workers.dev`, so preview deployments cannot be indexed even though the root homepage is production-ready for `merch.mt`.
 
 ## Lead delivery configuration
 
@@ -89,3 +89,4 @@ The temporary preview is deployed to a `workers.dev` address. Connect `merch.mt`
 3. Add the approved GA4/GTM measurement setup and EU consent implementation.
 4. Verify Google Search Console ownership and submit `/sitemap.xml`.
 5. Run a final end-to-end form test with the real destination.
+6. Verify that `merch.mt/` is indexable while the `workers.dev` preview remains blocked by the Worker-level robots guard.
