@@ -554,6 +554,11 @@ const productionHtml = renderVariant({ theme: "production", themeColor: "#f5f4f0
     `\n${productionOpsProcess}\n    </div>\n\n    <section class="section faq-section">`
   );
 
+const productionRootHtml = productionHtml.replace(
+  '  <meta name="robots" content="noindex,nofollow">\n',
+  ""
+);
+
 const notFoundHtml = `<!doctype html>
 <html lang="en">
 <head>
@@ -627,7 +632,7 @@ await copyFile(path.join(projectRoot, "src/themes/production.css"), path.join(di
 await copyFile(path.join(projectRoot, "src/favicon.svg"), path.join(distDir, "favicon.svg"));
 await copyFile(path.join(projectRoot, "src/apple-touch-icon.png"), path.join(distDir, "apple-touch-icon.png"));
 await Promise.all([
-  writeFile(path.join(distDir, "index.html"), html),
+  writeFile(path.join(distDir, "index.html"), productionRootHtml),
   writeFile(path.join(distDir, "editorial/index.html"), editorialHtml),
   writeFile(path.join(distDir, "igaming/index.html"), igamingHtml),
   writeFile(path.join(distDir, "event-culture/index.html"), eventCultureHtml),
