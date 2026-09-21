@@ -100,13 +100,13 @@ The page is strongest when a buyer already knows the operational problem: they n
 **Current strengths**
 
 - The page explicitly answers where delivery can go: booth, venue, hotel or another agreed Malta location.
-- It distinguishes EU production from Malta delivery.
+- It distinguishes EU production from Malta delivery and now explicitly states the intra-EU customs benefit: standard shipments to Malta do not require import customs clearance or import duty.
 - It explains realistic timing: 3+ weeks is ideal, 2 weeks is tight but possible for selected products and under 2 weeks is case by case.
 - The FAQ answers ordering, urgency, product selection and delivery questions.
 
 **Current limitation**
 
-The page does not yet explain minimum order quantities, typical budget ranges, product-specific production times, customs/VAT handling, delivery coverage outside the main Malta event venues or what happens if venue access changes.
+The page does not yet explain minimum order quantities, typical budget ranges, product-specific production times, VAT/accounting treatment, delivery coverage outside the main Malta event venues or what happens if venue access changes.
 
 ## 3. Exact current on-page and technical implementation
 
