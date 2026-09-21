@@ -285,14 +285,14 @@ const html = `<!doctype html>
           <a href="#projects">Projects</a>
           <a href="#process">How it works</a>
         </nav>
-        <a class="button button--small header-cta" href="#quote" data-event="header_cta_click">Get a Quote</a>
+        <a class="button button--small header-cta" href="#quote" data-event="header_cta_click">Let's Make Merch</a>
       </header>
       <div class="hero__content">
         <p class="eyebrow"><span></span> Event merchandise for conferences in Malta</p>
         <h1>Your Merch Partner in Malta</h1>
         <p class="hero__lede">Need branded merchandise for an event in Malta? We’ll handle it—from product selection and EU production to delivery straight to your booth or hotel room.</p>
         <div class="hero__actions">
-          <a class="button button--light" href="#quote" data-event="hero_cta_click">Get a Quote <span aria-hidden="true">↗</span></a>
+          <a class="button button--light" href="#quote" data-event="hero_cta_click">Let's Make Merch <span aria-hidden="true">↗</span></a>
           <a class="text-link" href="${site.telegramUrl}" target="_blank" rel="noopener" data-event="telegram_click" data-event-label="hero">Send your brief on Telegram</a>
         </div>
         <ul class="proof-list" aria-label="Service highlights">
@@ -390,7 +390,7 @@ const html = `<!doctype html>
         <p class="eyebrow eyebrow--dark"><span></span> Lead time</p>
         <h2>Order early.<br>Arrive stress-free.</h2>
         <p>Three weeks or more is the ideal, stress-free window. Two weeks is tight but still possible for selected products. Under two weeks is assessed case by case.</p>
-        <a class="button button--blue" href="#quote" data-event="timeline_cta_click">Check my timeline</a>
+        <a class="button button--blue" href="#quote" data-event="timeline_cta_click">Check My Timing</a>
       </div>
       <div class="timeline" aria-label="Typical event merchandise lead times">
         <div class="timeline__item timeline__item--ideal">
@@ -430,9 +430,9 @@ const html = `<!doctype html>
 
     <section class="quote-section" id="quote">
       <div class="quote-section__copy">
-        <p class="eyebrow"><span></span> Start your brief</p>
-        <h2>Need merch for an event in Malta?</h2>
-        <p>Order conference giveaways, branded merchandise or promotional products for your Malta event. We will select, produce and deliver everything straight to your booth, venue or hotel.</p>
+        <p class="eyebrow"><span></span> Start with what you know</p>
+        <h2>Let’s make your Malta merch happen.</h2>
+        <p>Tell us the event and the essentials. We’ll suggest the right options, handle EU production and deliver everything to your booth, venue or hotel in Malta.</p>
         <div class="direct-contact">
           <span>Prefer a direct message?</span>
           <a href="${site.telegramUrl}" target="_blank" rel="noopener" data-event="telegram_click" data-event-label="form">Telegram · ${site.telegramLabel}</a>
@@ -440,21 +440,21 @@ const html = `<!doctype html>
         </div>
       </div>
       <form class="lead-form" action="/api/lead" method="post" data-lead-form novalidate>
+        <div class="lead-form__intro">
+          <strong>30 seconds is enough.</strong>
+          <span>Share the basics — we’ll ask for the rest only if we need it.</span>
+        </div>
         <div class="form-grid">
-          <label>Name <span>*</span><input name="name" type="text" autocomplete="name" required maxlength="80"></label>
-          <label>Company<input name="company" type="text" autocomplete="organization" maxlength="100"></label>
-          <label>Work email <span>*</span><input name="email" type="email" autocomplete="email" required maxlength="160"></label>
-          <label>Which event are you attending?<input name="event" type="text" maxlength="120"></label>
-          <label>Event date<input name="eventDate" type="date"></label>
-          <label>Approximate quantity<input name="quantity" type="text" inputmode="numeric" maxlength="40" placeholder="e.g. 250 items"></label>
-          <label class="form-grid__wide">What do you need? <span>*</span><input name="need" type="text" required maxlength="180" placeholder="Giveaways, team apparel, VIP gifts…"></label>
-          <label>Approximate budget <small>optional</small><input name="budget" type="text" maxlength="60" placeholder="e.g. €5,000"></label>
-          <label class="form-grid__wide">Message / brief<textarea name="message" rows="4" maxlength="2000" placeholder="Audience, branding ideas, delivery location or anything else we should know"></textarea></label>
+          <label>Name <span>*</span><input name="name" type="text" autocomplete="name" required maxlength="80" placeholder="Your name"></label>
+          <label>Work email <span>*</span><input name="email" type="email" autocomplete="email" required maxlength="160" placeholder="you@company.com"></label>
+          <label>Company <small>optional</small><input name="company" type="text" autocomplete="organization" maxlength="100" placeholder="Company name"></label>
+          <label>Event + date <small>optional</small><input name="event" type="text" maxlength="120" placeholder="e.g. SiGMA Europe · November"></label>
+          <label class="form-grid__wide">Tell us what you need <span>*</span><textarea name="need" rows="5" required maxlength="2000" placeholder="Giveaways, team apparel, VIP gifts, quantity, budget, delivery point — whatever you already know."></textarea></label>
         </div>
         <label class="honeypot" aria-hidden="true">Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
         <input type="hidden" name="startedAt" value="" data-started-at>
         <label class="consent"><input type="checkbox" name="consent" required> <span>I agree to the <a href="${site.privacyUrl}" target="_blank" rel="noopener">processing of my personal data</a> for this enquiry.</span></label>
-        <button class="button button--ink button--submit" type="submit" data-submit-button>Send My Brief <span aria-hidden="true">↗</span></button>
+        <button class="button button--ink button--submit" type="submit" data-submit-button>Let’s Make Merch <span aria-hidden="true">↗</span></button>
         <p class="form-status" role="status" aria-live="polite" data-form-status></p>
       </form>
     </section>
@@ -474,7 +474,7 @@ const html = `<!doctype html>
     <p class="footer-note">© ${new Date().getFullYear()} merch.mt. Conference names belong to their respective owners.</p>
   </footer>
 
-  <a class="mobile-sticky-cta" href="#quote" data-event="mobile_sticky_cta_click">Get a Quote</a>
+  <a class="mobile-sticky-cta" href="#quote" data-event="mobile_sticky_cta_click">Let's Make Merch</a>
   <script src="/assets/script.js?v=${assetVersion}" defer></script>
 </body>
 </html>`;
