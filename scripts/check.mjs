@@ -19,7 +19,9 @@ if (html.toLowerCase().includes("produced locally in malta")) failures.push("Dis
 if (!html.includes('rel="canonical" href="https://merch.mt/"')) failures.push("Canonical URL is missing.");
 if (!html.includes('type="application/ld+json"')) failures.push("Structured data is missing.");
 if (!html.includes('action="/api/lead"')) failures.push("Lead form endpoint is missing.");
-if (html.includes('content="noindex,nofollow"')) failures.push("The base concept must remain indexable.");
+if (html.includes('content="noindex,nofollow"')) failures.push("The root production homepage must remain indexable.");
+if (!html.includes('/assets/themes/production.css')) failures.push("The root homepage must use the production theme stylesheet.");
+if (!html.includes('class="theme-production"')) failures.push("The root homepage must render the production theme.");
 
 const title = html.match(/<title>([^<]+)<\/title>/)?.[1] || "";
 const metaDescription = html.match(/<meta name="description" content="([^"]+)">/)?.[1] || "";
@@ -116,4 +118,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Checks passed: the base site and four review variants share content, metadata, schema and form behavior.`);
+console.log(`Checks passed: the production homepage and review variants share content, metadata, schema and form behavior.`);

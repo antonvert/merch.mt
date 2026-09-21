@@ -1,10 +1,10 @@
 # merch.mt SEO & GEO Implementation Report
 
 **Report basis:** actual generated production candidate and source code, not the original specification  
-**Code version reviewed:** current production source after the 18 September visual-compression pass
+**Code version reviewed:** launch-readiness production source after the 20 September visual-polish pass
 
-**Review date:** 18 September 2026  
-**Current preview:** `https://merch-mt-preview.kg-758.workers.dev/production/`  
+**Review date:** 20 September 2026  
+**Current preview:** `https://merch-mt-preview.kg-758.workers.dev/`  
 **Intended production URL:** `https://merch.mt/`
 
 ## Executive summary
@@ -20,13 +20,14 @@ The page has useful coverage for four commercial search areas:
 
 The strongest current SEO/GEO assets are the explicit service wording, named conference coverage, six useful FAQs, a single focused gallery of real project photography and structured `Service` and `FAQPage` data.
 
-Three launch-critical limitations remain:
+The approved production layout now builds directly to the root homepage. Preview indexing is intentionally blocked at the Cloudflare Worker level on `*.workers.dev`, while the same root document remains indexable when served from `https://merch.mt/`.
 
-- The current `/production/` preview is deliberately marked `noindex,nofollow` and is not in the sitemap. It cannot rank while this remains in place.
+Two launch integrations still require account configuration rather than code changes:
+
 - The analytics code prepares events in `window.dataLayer`, but no GA4 or Google Tag Manager script is loaded. No traffic or conversion data is currently being sent to GA4.
 - The form backend exists, but no live delivery destination is configured in the preview. Therefore a successful `form_submit` conversion cannot currently occur.
 
-These limitations are appropriate for a preview, but they must be resolved when the approved production design is moved to `https://merch.mt/`.
+These are the remaining operational launch tasks once the custom domain is connected.
 
 ## 1. Intent-to-implementation map
 
@@ -129,24 +130,23 @@ The page does not yet explain minimum order quantities, typical budget ranges, p
 
 ### Robots and canonical state
 
-The current preview and the intended final homepage have different indexing states.
+The generated root page is now the approved production layout.
 
-**Current `/production/` preview**
-
-- HTML meta robots: `noindex,nofollow`
-- HTTP header: `X-Robots-Tag: noindex, nofollow`
-- Canonical: `https://merch.mt/`
-- Sitemap inclusion: excluded
-
-This means the production preview is intentionally prevented from ranking.
-
-**Current generated root page**
+**On `https://merch.mt/`**
 
 - No `noindex` meta directive
 - Canonical: `https://merch.mt/`
 - Included in sitemap
+- Production theme and production page structure are rendered at the root URL
 
-The approved production design must replace the root page, or the noindex directives must be removed from the final production route, before launch.
+**On `*.workers.dev` preview hosts**
+
+- The Worker returns `X-Robots-Tag: noindex, nofollow` on HTML responses
+- The Worker serves a preview-only `robots.txt` with `Disallow: /`
+- Canonical remains `https://merch.mt/`
+- Review routes remain excluded from the sitemap
+
+The `/production/` route is retained only as a noindex review mirror. This prevents accidental indexing of preview deployments without weakening the indexability of the final custom-domain homepage.
 
 **robots.txt**
 

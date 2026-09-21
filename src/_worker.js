@@ -155,6 +155,31 @@ export default {
       if (request.method !== "POST") return json({ ok: false, code: "method_not_allowed" }, 405);
       return handleLead(request, env);
     }
-    return env.ASSETS.fetch(request);
+
+    const isWorkersPreview = url.hostname.endsWith(".workers.dev");
+    if (isWorkersPreview && url.pathname === "/robots.txt") {
+      return new Response("User-agent: *\nDisallow: /\n", {
+        headers: {
+          "Content-Type": "text/plain; charset=utf-8",
+          "Cache-Control": "no-store",
+          "X-Robots-Tag": "noindex, nofollow"
+        }
+      });
+    }
+
+    const response = await env.ASSETS.fetch(request);
+    if (!isWorkersPreview) return response;
+
+    const headers = new Headers(response.headers);
+    const contentType = headers.get("content-type") || "";
+    if (contentType.includes("text/html")) {
+      headers.set("X-Robots-Tag", "noindex, nofollow");
+    }
+
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers
+    });
   }
 };
