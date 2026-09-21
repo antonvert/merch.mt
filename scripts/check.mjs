@@ -23,11 +23,18 @@ if (!html.includes('action="/api/lead"')) failures.push("Lead form endpoint is m
 if (html.includes('content="noindex,nofollow"')) failures.push("The root production homepage must remain indexable.");
 if (!html.includes('/assets/themes/production.css')) failures.push("The root homepage must use the production theme stylesheet.");
 if (!html.includes('class="theme-production"')) failures.push("The root homepage must render the production theme.");
-if (!productionCss.includes("--blue: #2638cf") || !productionCss.includes("--lime: #c9ff3f")) {
-  failures.push("Production palette must use the SWAGGY blue + lime tokens.");
+if (!productionCss.includes("--blue: #2638cf") || !productionCss.includes("background: #1d1e20")) {
+  failures.push("Production palette must use the approved blue + charcoal system.");
 }
-if (productionCss.includes("#5657e9") || productionCss.includes("#ff5b2e")) {
-  failures.push("Legacy production accent colors are still present.");
+if (
+  productionCss.includes("--lime:") ||
+  productionCss.includes("#c9ff3f") ||
+  productionCss.includes("#91bd13") ||
+  productionCss.includes("#f2ffd0") ||
+  productionCss.includes("#5657e9") ||
+  productionCss.includes("#ff5b2e")
+) {
+  failures.push("Legacy lime/orange/periwinkle production colors are still present.");
 }
 for (const timingLabel of ['content: "T–21+"', 'content: "T–14"', 'content: "<T–14"']) {
   if (!productionCss.includes(timingLabel)) failures.push(`Production timing marker missing: ${timingLabel}`);

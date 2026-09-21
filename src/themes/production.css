@@ -3,13 +3,11 @@ body.theme-production {
   --blue: #2638cf;
   --blue-deep: #151d82;
   --blue-soft: #e8ebff;
-  --lime: #c9ff3f;
-  --lime-deep: #91bd13;
-  --lime-soft: #f2ffd0;
-  /* Legacy aliases kept for shared selectors; production uses SWAGGY blue + lime. */
-  --orange: var(--lime);
-  --orange-dark: var(--lime-deep);
-  --orange-soft: var(--lime-soft);
+  --blue-bright: #8f99ff;
+  /* Legacy aliases kept for shared selectors; production now uses a restrained blue / charcoal / white system. */
+  --orange: var(--blue);
+  --orange-dark: var(--blue-deep);
+  --orange-soft: var(--blue-soft);
   --ink: #111111;
   --muted: #62625f;
   --paper: #f5f4f0;
@@ -548,7 +546,7 @@ body.theme-production {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(340px, 0.75fr);
   color: var(--white);
-  background: #121212;
+  background: #1d1e20;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -613,7 +611,7 @@ body.theme-production {
 
 .theme-production .conference-card__index,
 .theme-production .conference-card:nth-child(2) .conference-card__index {
-  color: var(--lime);
+  color: var(--blue-bright);
   font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
 }
 
@@ -710,7 +708,7 @@ body.theme-production {
 
 .theme-production .industry-list li:not(.industry-list__lead):not(:last-child)::after {
   margin-left: 9px;
-  color: var(--lime);
+  color: var(--blue-bright);
   content: "/";
 }
 
@@ -731,7 +729,7 @@ body.theme-production {
 .theme-production .industry-list__lead::before {
   display: block;
   margin-bottom: 10px;
-  color: var(--lime);
+  color: var(--blue-bright);
   content: "PRIMARY /";
   font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
   font-size: 0.65rem;
@@ -1039,7 +1037,11 @@ body.theme-production {
 }
 
 .theme-production .quote-section .eyebrow {
-  color: var(--lime);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.theme-production .quote-section .eyebrow span {
+  background: var(--white);
 }
 
 .theme-production .quote-section__copy > p:not(.eyebrow) {
@@ -1063,9 +1065,10 @@ body.theme-production {
 .theme-production .lead-form {
   padding: clamp(28px, 3.8vw, 50px);
   color: var(--ink);
-  background: var(--lime);
-  border: 0;
+  background: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.34);
   border-radius: 8px;
+  box-shadow: 0 18px 48px rgba(12, 20, 82, 0.18);
 }
 
 .theme-production .lead-form__intro {
@@ -1106,8 +1109,8 @@ body.theme-production {
   margin-top: 8px;
   padding: 13px 14px;
   color: var(--ink);
-  background: rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(17, 17, 17, 0.18);
+  background: #f7f7f3;
+  border: 1px solid rgba(17, 17, 17, 0.14);
   border-radius: 5px;
 }
 
@@ -1205,7 +1208,7 @@ body.theme-production {
 .theme-production .mobile-sticky-cta {
   color: var(--white);
   background: var(--blue);
-  border-color: var(--lime);
+  border-color: var(--white);
   border-radius: 6px;
 }
 
