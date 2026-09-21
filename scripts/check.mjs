@@ -22,6 +22,12 @@ if (!html.includes('action="/api/lead"')) failures.push("Lead form endpoint is m
 if (html.includes('content="noindex,nofollow"')) failures.push("The root production homepage must remain indexable.");
 if (!html.includes('/assets/themes/production.css')) failures.push("The root homepage must use the production theme stylesheet.");
 if (!html.includes('class="theme-production"')) failures.push("The root homepage must render the production theme.");
+if (!html.includes("Let's Make Merch") && !html.includes("Let’s Make Merch")) failures.push("Production CTA copy is missing.");
+if (html.includes("Get a Quote")) failures.push("Legacy Get a Quote CTA is still present on the production homepage.");
+if (!html.includes('name="need"') || !html.includes('<textarea name="need"')) failures.push("Simplified required brief textarea is missing.");
+for (const removedField of ['name="eventDate"', 'name="quantity"', 'name="budget"', 'name="message"']) {
+  if (html.includes(removedField)) failures.push(`Legacy form field remains on production homepage: ${removedField}`);
+}
 
 const title = html.match(/<title>([^<]+)<\/title>/)?.[1] || "";
 const metaDescription = html.match(/<meta name="description" content="([^"]+)">/)?.[1] || "";
