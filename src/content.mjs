@@ -151,7 +151,7 @@ export const gallery = [
 
 export const benefits = [
   ["Don't carry boxes to Malta", "Your team travels light. Your merchandise takes the direct route to the agreed location."],
-  ["EU production", "Sourcing, branding and production stay within the European Union — no import customs clearance or import duty on standard intra-EU delivery to Malta."],
+  ["EU production", "Sourcing, branding and production stay within the EU. Delivery to Malta stays inside the EU customs area — no import customs clearance or import duty."],
   ["Delivery where you need it", "Straight to your booth, hotel or another agreed location in Malta."],
   ["One point of contact", "One manager coordinates production, quality checks and delivery."],
   ["Products that fit the moment", "From simple giveaways to custom merchandise, apparel and VIP gifts."],

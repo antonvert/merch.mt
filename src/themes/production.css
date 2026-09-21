@@ -1,8 +1,8 @@
 /* Production candidate — clean European B2B, merchandise first */
 body.theme-production {
-  --blue: #5657e9;
-  --blue-deep: #3536a8;
-  --blue-soft: #ececff;
+  --blue: #2638cf;
+  --blue-deep: #151d82;
+  --blue-soft: #e8ebff;
   --lime: #c9ff3f;
   --lime-deep: #91bd13;
   --lime-soft: #f2ffd0;
@@ -34,8 +34,8 @@ body.theme-production {
 .theme-production .site-header {
   position: fixed;
   top: 16px;
-  right: max(28px, calc((100vw - 1420px) / 2));
-  left: max(28px, calc((100vw - 1420px) / 2));
+  right: max(16px, calc((100vw - 1480px) / 2));
+  left: max(16px, calc((100vw - 1480px) / 2));
   z-index: 500;
   min-height: 62px;
   padding: 7px 8px 7px 18px;
@@ -94,7 +94,7 @@ body.theme-production {
 
 .theme-production .button:hover {
   background: var(--blue-deep);
-  box-shadow: 0 10px 24px rgba(53, 54, 168, 0.18);
+  box-shadow: 0 10px 24px rgba(38, 56, 207, 0.18);
 }
 
 .theme-production .hero {
@@ -188,7 +188,7 @@ body.theme-production {
   padding-left: 14px;
   color: #565653;
   font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
-  font-size: 0.65rem;
+  font-size: 0.69rem;
   font-weight: 650;
   letter-spacing: 0.07em;
   text-transform: uppercase;
@@ -235,7 +235,7 @@ body.theme-production {
 }
 
 .theme-production .hero__caption span {
-  color: var(--orange-dark);
+  color: var(--blue);
   font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
   letter-spacing: 0.1em;
 }
@@ -466,7 +466,7 @@ body.theme-production {
 }
 
 .theme-production .intro-section__copy .text-link {
-  color: var(--orange-dark);
+  color: var(--blue);
 }
 
 .theme-production #merchandise {
@@ -516,7 +516,7 @@ body.theme-production {
   width: auto;
   height: auto;
   display: block;
-  color: var(--orange-dark);
+  color: var(--blue);
   background: transparent;
   border-radius: 0;
   font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
@@ -537,8 +537,8 @@ body.theme-production {
   max-width: 570px;
   margin: 0;
   color: var(--muted);
-  font-size: 0.88rem;
-  line-height: 1.48;
+  font-size: 0.93rem;
+  line-height: 1.46;
 }
 
 /* Scene 3: conference and industry context */
@@ -608,12 +608,12 @@ body.theme-production {
 .theme-production .conference-card:hover {
   padding-right: 10px;
   padding-left: 10px;
-  background: rgba(86, 87, 233, 0.12);
+  background: rgba(38, 56, 207, 0.18);
 }
 
 .theme-production .conference-card__index,
 .theme-production .conference-card:nth-child(2) .conference-card__index {
-  color: #9293ff;
+  color: var(--lime);
   font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
 }
 
@@ -628,8 +628,8 @@ body.theme-production {
 .theme-production .conference-card:nth-child(2) p {
   grid-column: 2;
   margin: 0;
-  color: #aaa9a4;
-  font-size: 0.88rem;
+  color: #b9b8b3;
+  font-size: 0.93rem;
   line-height: 1.45;
 }
 
@@ -661,7 +661,7 @@ body.theme-production {
   color: #d0cfca;
   border: 0;
   border-radius: 0;
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 620;
 }
 
@@ -710,7 +710,7 @@ body.theme-production {
 
 .theme-production .industry-list li:not(.industry-list__lead):not(:last-child)::after {
   margin-left: 9px;
-  color: #5657e9;
+  color: var(--lime);
   content: "/";
 }
 
@@ -731,7 +731,7 @@ body.theme-production {
 .theme-production .industry-list__lead::before {
   display: block;
   margin-bottom: 10px;
-  color: #9293ff;
+  color: var(--lime);
   content: "PRIMARY /";
   font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
   font-size: 0.65rem;
@@ -869,7 +869,7 @@ body.theme-production {
 
 .theme-production .benefit-card > span {
   margin: 0;
-  color: var(--orange-dark);
+  color: var(--blue);
   font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
   font-size: 0.7rem;
 }
@@ -885,8 +885,8 @@ body.theme-production {
   max-width: 570px;
   margin: 0;
   color: var(--muted);
-  font-size: 0.86rem;
-  line-height: 1.48;
+  font-size: 0.92rem;
+  line-height: 1.46;
 }
 
 .theme-production .timeline-section {
@@ -949,15 +949,15 @@ body.theme-production {
 }
 
 .theme-production .timeline__item--ideal::before {
-  content: "PLAN";
+  content: "T–21+";
 }
 
 .theme-production .timeline__item--rush::before {
-  content: "T–21";
+  content: "T–14";
 }
 
 .theme-production .timeline__item:last-child::before {
-  content: "T–14";
+  content: "<T–14";
 }
 
 .theme-production .timeline__item span {
@@ -1032,6 +1032,7 @@ body.theme-production {
   margin-top: 18px;
   margin-bottom: 10px;
   padding: clamp(64px, 6.8vw, 98px) clamp(30px, 6.2vw, 92px);
+  align-items: center;
   color: var(--white);
   background: var(--blue);
   border-radius: 10px;
@@ -1086,16 +1087,28 @@ body.theme-production {
   line-height: 1.45;
 }
 
-.theme-production .lead-form label,
-.theme-production .lead-form small {
+.theme-production .lead-form label {
   color: var(--ink);
+  font-size: 0.8rem;
+}
+
+.theme-production .lead-form small {
+  color: rgba(17, 17, 17, 0.58);
+  font-size: 0.7rem;
+}
+
+.theme-production .lead-form .form-grid label > span {
+  color: var(--blue-deep);
 }
 
 .theme-production .form-grid input,
 .theme-production .form-grid textarea {
+  margin-top: 8px;
+  padding: 13px 14px;
   color: var(--ink);
   background: rgba(255, 255, 255, 0.96);
-  border-color: rgba(17, 17, 17, 0.18);
+  border: 1px solid rgba(17, 17, 17, 0.18);
+  border-radius: 5px;
 }
 
 .theme-production .form-grid input::placeholder,
@@ -1106,7 +1119,7 @@ body.theme-production {
 .theme-production .form-grid input:focus,
 .theme-production .form-grid textarea:focus {
   border-color: var(--blue);
-  box-shadow: 0 2px 0 var(--blue);
+  box-shadow: 0 0 0 2px rgba(38, 56, 207, 0.16);
 }
 
 .theme-production .lead-form .consent,
@@ -1124,7 +1137,7 @@ body.theme-production {
 }
 
 .theme-production .lead-form .button--submit:hover {
-  background: #24258a;
+  background: var(--blue);
 }
 
 .theme-production .site-footer {
@@ -1335,6 +1348,19 @@ body.theme-production {
     padding: 92px 20px 22px;
     display: grid;
     gap: 0;
+  }
+
+  .theme-production .lead-form {
+    padding: 24px 18px;
+  }
+
+  .theme-production .form-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .theme-production .form-grid__wide {
+    grid-column: auto;
   }
 
   .theme-production .hero__content {
