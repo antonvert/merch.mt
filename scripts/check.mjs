@@ -7,6 +7,7 @@ const editorialHtml = await readFile(path.join(root, "dist/editorial/index.html"
 const igamingHtml = await readFile(path.join(root, "dist/igaming/index.html"), "utf8");
 const eventCultureHtml = await readFile(path.join(root, "dist/event-culture/index.html"), "utf8");
 const productionHtml = await readFile(path.join(root, "dist/production/index.html"), "utf8");
+const productionCss = await readFile(path.join(root, "dist/assets/themes/production.css"), "utf8");
 const failures = [];
 
 const count = (pattern) => (html.match(pattern) || []).length;
@@ -22,6 +23,15 @@ if (!html.includes('action="/api/lead"')) failures.push("Lead form endpoint is m
 if (html.includes('content="noindex,nofollow"')) failures.push("The root production homepage must remain indexable.");
 if (!html.includes('/assets/themes/production.css')) failures.push("The root homepage must use the production theme stylesheet.");
 if (!html.includes('class="theme-production"')) failures.push("The root homepage must render the production theme.");
+if (!productionCss.includes("--blue: #2638cf") || !productionCss.includes("--lime: #c9ff3f")) {
+  failures.push("Production palette must use the SWAGGY blue + lime tokens.");
+}
+if (productionCss.includes("#5657e9") || productionCss.includes("#ff5b2e")) {
+  failures.push("Legacy production accent colors are still present.");
+}
+for (const timingLabel of ['content: "T–21+"', 'content: "T–14"', 'content: "<T–14"']) {
+  if (!productionCss.includes(timingLabel)) failures.push(`Production timing marker missing: ${timingLabel}`);
+}
 if (!html.includes("Let's Make Merch") && !html.includes("Let’s Make Merch")) failures.push("Production CTA copy is missing.");
 if (html.includes("Get a Quote")) failures.push("Legacy Get a Quote CTA is still present on the production homepage.");
 if (!html.includes('name="need"') || !html.includes('<textarea name="need"')) failures.push("Simplified required brief textarea is missing.");
