@@ -114,7 +114,7 @@
       status.classList.add("is-error");
     } finally {
       submitButton.disabled = false;
-      submitButton.innerHTML = 'Send My Brief <span aria-hidden="true">↗</span>';
+      submitButton.innerHTML = 'Let’s Make Merch <span aria-hidden="true">↗</span>';
     }
   });
 })();
