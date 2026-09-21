@@ -1141,29 +1141,50 @@ body.theme-production {
 }
 
 .theme-production .site-footer {
-  margin-bottom: 12px;
-  padding: 28px 36px 18px;
-  gap: 24px 40px;
+  margin-bottom: 10px;
+  padding: 18px 28px 12px;
+  gap: 12px 28px;
+  align-items: center;
   color: var(--ink);
   background: var(--paper);
   border: 1px solid var(--line);
 }
 
+.theme-production .site-footer > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-width: 0;
+}
+
 .theme-production .site-footer > div:first-child > p {
   max-width: 520px;
-  margin-top: 12px;
-  font-size: 0.9rem;
-  line-height: 1.45;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 400;
+  line-height: 1.35;
 }
 
 .theme-production .footer-links {
-  gap: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px 18px;
   align-self: center;
+  text-align: right;
+}
+
+.theme-production .footer-links a {
+  font-size: 0.76rem;
+  font-weight: 420;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
 .theme-production .footer-note {
-  padding-top: 16px;
-  font-size: 0.7rem;
+  padding-top: 10px;
+  font-size: 0.66rem;
 }
 
 .theme-production .brand--footer,
@@ -1374,11 +1395,18 @@ body.theme-production {
   }
 
   .theme-production .site-footer {
-    padding: 22px 20px 16px;
-    gap: 18px;
+    padding: 18px 18px 14px;
+    gap: 14px;
+  }
+
+  .theme-production .site-footer > div:first-child {
+    display: grid;
+    gap: 8px;
   }
 
   .theme-production .footer-links {
+    justify-content: flex-start;
+    gap: 8px 14px;
     text-align: left;
   }
 
