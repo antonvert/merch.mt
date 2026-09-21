@@ -151,7 +151,7 @@ export const gallery = [
 
 export const benefits = [
   ["Don't carry boxes to Malta", "Your team travels light. Your merchandise takes the direct route to the agreed location."],
-  ["EU production", "Sourcing, branding and production stay within the European Union."],
+  ["EU production", "Sourcing, branding and production stay within the European Union — no import customs clearance or import duty on standard intra-EU delivery to Malta."],
   ["Delivery where you need it", "Straight to your booth, hotel or another agreed location in Malta."],
   ["One point of contact", "One manager coordinates production, quality checks and delivery."],
   ["Products that fit the moment", "From simple giveaways to custom merchandise, apparel and VIP gifts."],
@@ -185,7 +185,7 @@ export const faqs = [
   {
     question: "Are you a merchandise supplier in Malta?",
     answer:
-      "We are an EU production partner for companies attending events in Malta. We handle branding and quality control within the EU, then arrange merchandise delivery to your venue, booth or hotel in Malta."
+      "We are an EU production partner for companies attending events in Malta. Production and delivery stay within the EU Single Market, so standard shipments to Malta do not require import customs clearance or import duty. We then arrange delivery to your venue, booth or hotel in Malta."
   },
   {
     question: "What kind of event merchandise can you produce?",
