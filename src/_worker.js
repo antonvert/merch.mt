@@ -61,7 +61,7 @@ function normalize(raw) {
     email: clean(raw.email, 160).toLowerCase(),
     event: clean(raw.event, 120),
     eventDate: clean(raw.eventDate, 20),
-    need: clean(raw.need, 180),
+    need: clean(raw.need, 2000),
     quantity: clean(raw.quantity, 40),
     budget: clean(raw.budget, 60),
     message: clean(raw.message, 2000),
@@ -91,15 +91,11 @@ async function sendTelegram(token, chatId, payload) {
   const lines = [
     "<b>New merch.mt brief</b>",
     `Name: ${htmlEscape(payload.name)}`,
-    `Company: ${htmlEscape(payload.company || "—")}`,
     `Email: ${htmlEscape(payload.email)}`,
-    `Event: ${htmlEscape(payload.event || "—")}`,
-    `Event date: ${htmlEscape(payload.eventDate || "—")}`,
-    `Need: ${htmlEscape(payload.need)}`,
-    `Quantity: ${htmlEscape(payload.quantity || "—")}`,
-    `Budget: ${htmlEscape(payload.budget || "—")}`,
-    `Message: ${htmlEscape(payload.message || "—")}`
-  ];
+    payload.company ? `Company: ${htmlEscape(payload.company)}` : null,
+    payload.event ? `Event: ${htmlEscape(payload.event)}` : null,
+    `Brief: ${htmlEscape(payload.need)}`
+  ].filter(Boolean);
   const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
