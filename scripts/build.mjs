@@ -389,24 +389,24 @@ const html = `<!doctype html>
       <div class="timeline-section__intro">
         <p class="eyebrow eyebrow--dark"><span></span> Lead time</p>
         <h2>Order early.<br>Arrive stress-free.</h2>
-        <p>Earlier is better for choice and planning. At three weeks we are already moving fast. Two weeks or less is possible only after an individual check.</p>
+        <p>Three weeks or more is the ideal, stress-free window. Two weeks is tight but still possible for selected products. Under two weeks is assessed case by case.</p>
         <a class="button button--blue" href="#quote" data-event="timeline_cta_click">Check my timeline</a>
       </div>
       <div class="timeline" aria-label="Typical event merchandise lead times">
         <div class="timeline__item timeline__item--ideal">
-          <span>Best timing</span>
-          <strong>4+ weeks</strong>
-          <p>The widest product choice and the smoothest production plan.</p>
+          <span>Ideal timing</span>
+          <strong>3+ weeks</strong>
+          <p>Comfortable timing for product choice, branding, production and delivery.</p>
         </div>
         <div class="timeline__item timeline__item--rush">
-          <span>Rush</span>
-          <strong>3 weeks</strong>
-          <p>Fast-track decisions, production and delivery coordination.</p>
+          <span>Tight but possible</span>
+          <strong>2 weeks</strong>
+          <p>Possible for selected products when decisions and approvals move quickly.</p>
         </div>
         <div class="timeline__item">
-          <span>Case by case</span>
-          <strong>2 weeks or less</strong>
-          <p>Fewer available options. Send the brief and we will check what is realistic.</p>
+          <span>Ask us</span>
+          <strong>Under 2 weeks</strong>
+          <p>Case by case. Send the brief and we will check what is realistically possible.</p>
         </div>
       </div>
     </section>
@@ -546,7 +546,7 @@ const productionHtml = renderVariant({ theme: "production", themeColor: "#f5f4f0
     `<div class="benefit-grid">${productionBenefitCards}</div>\n    </section>`
   )
   .replace(
-    '        <h2>Order early.<br>Arrive stress-free.</h2>\n        <p>Earlier is better for choice and planning. At three weeks we are already moving fast. Two weeks or less is possible only after an individual check.</p>\n',
+    '        <h2>Order early.<br>Arrive stress-free.</h2>\n        <p>Three weeks or more is the ideal, stress-free window. Two weeks is tight but still possible for selected products. Under two weeks is assessed case by case.</p>\n',
     ""
   )
   .replace(
