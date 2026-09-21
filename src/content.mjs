@@ -170,7 +170,7 @@ export const faqs = [
   {
     question: "How early should I order merchandise for an event in Malta?",
     answer:
-      "Four weeks or more gives the widest choice. Three weeks is fast-track. Two weeks or less, including urgent orders, is assessed case by case based on the product, branding and quantity."
+      "Three weeks or more is the ideal, stress-free window. Two weeks is tight but can still be possible for selected products. Under two weeks, including urgent orders, is assessed case by case based on the product, branding and quantity."
   },
   {
     question: "Can you deliver merchandise to a conference venue or hotel in Malta?",
