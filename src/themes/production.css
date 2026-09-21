@@ -34,8 +34,8 @@ body.theme-production {
 .theme-production .site-header {
   position: fixed;
   top: 16px;
-  right: max(28px, calc((100vw - 1420px) / 2));
-  left: max(28px, calc((100vw - 1420px) / 2));
+  right: max(16px, calc((100vw - 1480px) / 2));
+  left: max(16px, calc((100vw - 1480px) / 2));
   z-index: 500;
   min-height: 62px;
   padding: 7px 8px 7px 18px;
@@ -94,7 +94,7 @@ body.theme-production {
 
 .theme-production .button:hover {
   background: var(--blue-deep);
-  box-shadow: 0 10px 24px rgba(53, 54, 168, 0.18);
+  box-shadow: 0 10px 24px rgba(38, 56, 207, 0.18);
 }
 
 .theme-production .hero {
@@ -188,7 +188,7 @@ body.theme-production {
   padding-left: 14px;
   color: #565653;
   font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
-  font-size: 0.65rem;
+  font-size: 0.69rem;
   font-weight: 650;
   letter-spacing: 0.07em;
   text-transform: uppercase;
@@ -1087,9 +1087,14 @@ body.theme-production {
   line-height: 1.45;
 }
 
-.theme-production .lead-form label,
-.theme-production .lead-form small {
+.theme-production .lead-form label {
   color: var(--ink);
+  font-size: 0.8rem;
+}
+
+.theme-production .lead-form small {
+  color: rgba(17, 17, 17, 0.58);
+  font-size: 0.7rem;
 }
 
 .theme-production .lead-form .form-grid label > span {
