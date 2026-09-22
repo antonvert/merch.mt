@@ -554,10 +554,15 @@ const productionHtml = renderVariant({ theme: "production", themeColor: "#f5f4f0
     `\n${productionOpsProcess}\n    </div>\n\n    <section class="section faq-section">`
   );
 
-const productionRootHtml = productionHtml.replace(
-  '  <meta name="robots" content="noindex,nofollow">\n',
-  ""
-);
+const productionRootHtml = productionHtml
+  .replace(
+    '  <meta name="robots" content="noindex,nofollow">\n',
+    ""
+  )
+  .replace(
+    '  <script type="application/ld+json">',
+    '  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YRCP7PXYYE"></script>\n  <script type="application/ld+json">'
+  );
 
 const notFoundHtml = `<!doctype html>
 <html lang="en">
@@ -590,7 +595,7 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   </url>
 </urlset>`;
 const headers = `/*
-  Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com; style-src 'self'; script-src 'self' https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   X-Content-Type-Options: nosniff
