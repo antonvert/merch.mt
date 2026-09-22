@@ -90,3 +90,8 @@ The temporary preview is deployed to a `workers.dev` address. Connect `merch.mt`
 4. Verify Google Search Console ownership and submit `/sitemap.xml`.
 5. Run a final end-to-end form test with the real destination.
 6. Verify that `merch.mt/` is indexable while the `workers.dev` preview remains blocked by the Worker-level robots guard.
+
+
+## Production handoff
+
+See [docs/HANDOFF.md](docs/HANDOFF.md) for production ownership, deployment, analytics and lead-delivery details.
