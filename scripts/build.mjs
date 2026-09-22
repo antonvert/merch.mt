@@ -258,14 +258,14 @@ const html = `<!doctype html>
   <meta property="og:title" content="${escapeHtml(site.title)}">
   <meta property="og:description" content="${escapeHtml(site.description)}">
   <meta property="og:url" content="${site.url}/">
-  <meta property="og:image" content="${site.url}/assets/images/og-event-merchandise-malta.jpg">
+  <meta property="og:image" content="${site.url}/assets/images/og-swaggy-merchandise-malta-2026.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Branded conference merchandise produced for an international event team">
+  <meta property="og:image:alt" content="SWAGGY branded merchandise prepared for an international event team">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(site.title)}">
   <meta name="twitter:description" content="${escapeHtml(site.description)}">
-  <meta name="twitter:image" content="${site.url}/assets/images/og-event-merchandise-malta.jpg">
+  <meta name="twitter:image" content="${site.url}/assets/images/og-swaggy-merchandise-malta-2026.jpg">
   <link rel="preload" as="image" href="/assets/images/starcrown-event-gifts.webp" imagesrcset="/assets/images/starcrown-event-gifts-640.webp 640w, /assets/images/starcrown-event-gifts.webp 960w" imagesizes="(max-width: 860px) 100vw, 42vw">
   <link rel="stylesheet" href="/assets/styles.css?v=${assetVersion}">
   <script type="application/ld+json">${JSON.stringify(structuredData)}</script>
