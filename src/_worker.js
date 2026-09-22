@@ -147,6 +147,13 @@ async function handleLead(request, env) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    if (url.hostname === "www.merch.mt" || url.protocol !== "https:") {
+      url.protocol = "https:";
+      url.hostname = "merch.mt";
+      return Response.redirect(url.toString(), 308);
+    }
+
     if (url.pathname === "/api/lead") {
       if (request.method !== "POST") return json({ ok: false, code: "method_not_allowed" }, 405);
       return handleLead(request, env);
