@@ -20,6 +20,9 @@ if (!html.includes("SiGMA Europe Malta") || !html.includes("SBC Summit Malta") |
 }
 if (html.toLowerCase().includes("produced locally in malta")) failures.push("Disallowed Malta production claim found.");
 if (!html.includes('rel="canonical" href="https://merch.mt/"')) failures.push("Canonical URL is missing.");
+if (!html.includes('og:image" content="https://merch.mt/assets/images/og-swaggy-merchandise-malta-2026.jpg"')) {
+  failures.push("Updated SWAGGY social preview image is missing.");
+}
 if (!html.includes('type="application/ld+json"')) failures.push("Structured data is missing.");
 if (!html.includes('action="/api/lead"')) failures.push("Lead form endpoint is missing.");
 if (html.includes('content="noindex,nofollow"')) failures.push("The root production homepage must remain indexable.");
