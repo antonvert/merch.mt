@@ -8,6 +8,8 @@ const igamingHtml = await readFile(path.join(root, "dist/igaming/index.html"), "
 const eventCultureHtml = await readFile(path.join(root, "dist/event-culture/index.html"), "utf8");
 const productionHtml = await readFile(path.join(root, "dist/production/index.html"), "utf8");
 const productionCss = await readFile(path.join(root, "dist/assets/themes/production.css"), "utf8");
+const wranglerConfig = await readFile(path.join(root, "wrangler.jsonc"), "utf8");
+const workerSource = await readFile(path.join(root, "src/_worker.js"), "utf8");
 const failures = [];
 
 const count = (pattern) => (html.match(pattern) || []).length;
@@ -23,6 +25,13 @@ if (!html.includes('action="/api/lead"')) failures.push("Lead form endpoint is m
 if (html.includes('content="noindex,nofollow"')) failures.push("The root production homepage must remain indexable.");
 if (!html.includes('/assets/themes/production.css')) failures.push("The root homepage must use the production theme stylesheet.");
 if (!html.includes('class="theme-production"')) failures.push("The root homepage must render the production theme.");
+if (!wranglerConfig.includes('"name": "merch-mt"')) failures.push("Production Worker must be named merch-mt.");
+if (!wranglerConfig.includes('"pattern": "merch.mt"') || !wranglerConfig.includes('"pattern": "www.merch.mt"')) {
+  failures.push("Production custom domains merch.mt and www.merch.mt must be configured.");
+}
+if (!workerSource.includes('url.hostname === "www.merch.mt"')) {
+  failures.push("www.merch.mt canonical redirect is missing.");
+}
 if (!productionCss.includes("--blue: #2638cf") || !productionCss.includes("background: #1d1e20")) {
   failures.push("Production palette must use the approved blue + charcoal system.");
 }
