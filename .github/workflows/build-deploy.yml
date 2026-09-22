@@ -39,6 +39,22 @@ jobs:
         if: env.CLOUDFLARE_API_TOKEN != '' && env.CLOUDFLARE_ACCOUNT_ID != ''
         run: npx wrangler deploy
 
+      - name: Smoke test production lead delivery
+        if: success() && contains(github.event.head_commit.message, '[lead-smoke-test]')
+        run: |
+          started_at="$(node -e 'console.log(Date.now()-5000)')"
+          response="$(curl --fail-with-body --silent --show-error \
+            --request POST https://merch.mt/api/lead \
+            --data-urlencode "name=merch.mt launch test" \
+            --data-urlencode "email=order@swaggy.agency" \
+            --data-urlencode "company=SWAGGY" \
+            --data-urlencode "event=Production smoke test" \
+            --data-urlencode "need=Automated one-time delivery test after launch. No action needed." \
+            --data-urlencode "consent=on" \
+            --data-urlencode "startedAt=$started_at")"
+          echo "$response"
+          echo "$response" | grep -q '"ok":true'
+
       - name: Cloudflare credentials missing
         if: env.CLOUDFLARE_API_TOKEN == '' || env.CLOUDFLARE_ACCOUNT_ID == ''
         run: |
