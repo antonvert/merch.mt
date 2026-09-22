@@ -1,8 +1,18 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "merch-mt-preview",
+  "name": "merch-mt",
   "main": "src/_worker.js",
   "compatibility_date": "2026-09-17",
+  "routes": [
+    {
+      "pattern": "merch.mt",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.merch.mt",
+      "custom_domain": true
+    }
+  ],
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
