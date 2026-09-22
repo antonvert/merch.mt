@@ -20,7 +20,12 @@ const clean = (value, maxLength) =>
 const validEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
 
 const htmlEscape = (value) =>
-  value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+  value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 
 async function parseBody(request) {
   const contentLength = Number(request.headers.get("content-length") || 0);
@@ -71,37 +76,48 @@ function normalize(raw) {
   };
 }
 
-async function sendWebhook(url, secret, payload, request) {
-  const headers = { "Content-Type": "application/json", "User-Agent": "merch.mt-lead-form/1.0" };
-  if (secret) headers.Authorization = `Bearer ${secret}`;
-  const response = await fetch(url, {
-    method: "POST",
-    headers,
-    body: JSON.stringify({
-      source: "merch.mt",
-      submittedAt: new Date().toISOString(),
-      country: request.cf?.country || null,
-      ...payload
-    })
-  });
-  if (!response.ok) throw new Error(`webhook_${response.status}`);
-}
+async function sendLeadEmail(binding, payload, request) {
+  const country = clean(request.cf?.country || "", 16);
+  const subject = ["New merch.mt lead", payload.company || payload.name, payload.event]
+    .filter(Boolean)
+    .join(" · ")
+    .slice(0, 180);
 
-async function sendTelegram(token, chatId, payload) {
-  const lines = [
-    "<b>New merch.mt brief</b>",
-    `Name: ${htmlEscape(payload.name)}`,
-    `Email: ${htmlEscape(payload.email)}`,
-    payload.company ? `Company: ${htmlEscape(payload.company)}` : null,
-    payload.event ? `Event: ${htmlEscape(payload.event)}` : null,
-    `Brief: ${htmlEscape(payload.need)}`
-  ].filter(Boolean);
-  const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ chat_id: chatId, parse_mode: "HTML", text: lines.join("\n") })
+  const text = [
+    "New merch.mt enquiry",
+    "",
+    `Name: ${payload.name}`,
+    `Email: ${payload.email}`,
+    payload.company ? `Company: ${payload.company}` : null,
+    payload.event ? `Event: ${payload.event}` : null,
+    country ? `Country: ${country}` : null,
+    "",
+    "Brief:",
+    payload.need
+  ].filter((line) => line !== null).join("\n");
+
+  const html = `
+    <div style="font-family:Arial,sans-serif;line-height:1.5;color:#171717;max-width:680px">
+      <h2 style="margin:0 0 18px">New merch.mt enquiry</h2>
+      <table style="border-collapse:collapse;width:100%;margin-bottom:20px">
+        <tr><td style="padding:5px 12px 5px 0;color:#666">Name</td><td style="padding:5px 0"><strong>${htmlEscape(payload.name)}</strong></td></tr>
+        <tr><td style="padding:5px 12px 5px 0;color:#666">Email</td><td style="padding:5px 0"><a href="mailto:${htmlEscape(payload.email)}">${htmlEscape(payload.email)}</a></td></tr>
+        ${payload.company ? `<tr><td style="padding:5px 12px 5px 0;color:#666">Company</td><td style="padding:5px 0">${htmlEscape(payload.company)}</td></tr>` : ""}
+        ${payload.event ? `<tr><td style="padding:5px 12px 5px 0;color:#666">Event</td><td style="padding:5px 0">${htmlEscape(payload.event)}</td></tr>` : ""}
+        ${country ? `<tr><td style="padding:5px 12px 5px 0;color:#666">Country</td><td style="padding:5px 0">${htmlEscape(country)}</td></tr>` : ""}
+      </table>
+      <div style="padding:16px 18px;background:#f4f4f1;border-radius:10px;white-space:pre-wrap">${htmlEscape(payload.need)}</div>
+      <p style="margin:18px 0 0;color:#666;font-size:13px">Submitted via merch.mt</p>
+    </div>`;
+
+  await binding.send({
+    to: "order@swaggy.agency",
+    from: { email: "leads@merch.mt", name: "merch.mt" },
+    replyTo: { email: payload.email, name: payload.name },
+    subject,
+    text,
+    html
   });
-  if (!response.ok) throw new Error(`telegram_${response.status}`);
 }
 
 async function handleLead(request, env) {
@@ -125,20 +141,19 @@ async function handleLead(request, env) {
   }
   if (await rateLimited(request)) return json({ ok: false, code: "rate_limited" }, 429);
 
-  const deliveries = [];
-  if (env.FORM_WEBHOOK_URL) {
-    deliveries.push(sendWebhook(env.FORM_WEBHOOK_URL, env.FORM_WEBHOOK_SECRET, payload, request));
-  }
-  if (env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID) {
-    deliveries.push(sendTelegram(env.TELEGRAM_BOT_TOKEN, env.TELEGRAM_CHAT_ID, payload));
-  }
-  if (deliveries.length === 0) {
+  if (!env.LEAD_EMAIL) {
     return json({ ok: false, code: "destination_not_configured" }, 503);
   }
 
-  const results = await Promise.allSettled(deliveries);
-  if (results.every((result) => result.status === "rejected")) {
-    return json({ ok: false, code: "delivery_failed", message: "We could not send the brief. Please use Telegram or email." }, 502);
+  try {
+    await sendLeadEmail(env.LEAD_EMAIL, payload, request);
+  } catch (error) {
+    console.error("Lead email delivery failed", error?.code || "", error?.message || error);
+    return json({
+      ok: false,
+      code: "delivery_failed",
+      message: "We could not send the brief. Please email order@swaggy.agency directly."
+    }, 502);
   }
 
   return json({ ok: true });

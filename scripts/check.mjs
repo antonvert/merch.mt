@@ -35,6 +35,15 @@ if (!wranglerConfig.includes('"pattern": "merch.mt"') || !wranglerConfig.include
 if (!workerSource.includes('url.hostname === "www.merch.mt"')) {
   failures.push("www.merch.mt canonical redirect is missing.");
 }
+if (!wranglerConfig.includes('"name": "LEAD_EMAIL"') || !wranglerConfig.includes('"destination_address": "order@swaggy.agency"')) {
+  failures.push("Lead email binding must target order@swaggy.agency.");
+}
+if (!workerSource.includes("env.LEAD_EMAIL") || !workerSource.includes("leads@merch.mt")) {
+  failures.push("Lead form must deliver by Cloudflare Email Service.");
+}
+if (workerSource.includes("TELEGRAM_BOT_TOKEN") || workerSource.includes("FORM_WEBHOOK_URL")) {
+  failures.push("Legacy Telegram/webhook lead delivery should not remain in production.");
+}
 if (!productionCss.includes("--blue: #2638cf") || !productionCss.includes("background: #1d1e20")) {
   failures.push("Production palette must use the approved blue + charcoal system.");
 }
