@@ -24,6 +24,10 @@ if (!html.includes('og:image" content="https://merch.mt/assets/images/og-swaggy-
   failures.push("Updated SWAGGY social preview image is missing.");
 }
 if (!html.includes('type="application/ld+json"')) failures.push("Structured data is missing.");
+if (!html.includes('https://www.googletagmanager.com/gtag/js?id=G-YRCP7PXYYE')) {
+  failures.push("GA4 Google tag is missing from the production homepage.");
+}
+if (!html.includes('/assets/script.js')) failures.push("Production analytics bootstrap script is missing.");
 if (!html.includes('action="/api/lead"')) failures.push("Lead form endpoint is missing.");
 if (html.includes('content="noindex,nofollow"')) failures.push("The root production homepage must remain indexable.");
 if (!html.includes('/assets/themes/production.css')) failures.push("The root homepage must use the production theme stylesheet.");
@@ -34,6 +38,13 @@ if (!wranglerConfig.includes('"pattern": "merch.mt"') || !wranglerConfig.include
 }
 if (!workerSource.includes('url.hostname === "www.merch.mt"')) {
   failures.push("www.merch.mt canonical redirect is missing.");
+}
+const clientScript = await readFile(path.join(root, "dist/assets/script.js"), "utf8");
+if (!clientScript.includes('G-YRCP7PXYYE') || !clientScript.includes('window.gtag("config", GA_MEASUREMENT_ID)')) {
+  failures.push("Production JS must initialize GA4 with G-YRCP7PXYYE.");
+}
+if (!clientScript.includes('window.gtag("event", event, details)')) {
+  failures.push("Custom site events must be forwarded to GA4.");
 }
 if (!wranglerConfig.includes('"name": "LEAD_EMAIL"') || !wranglerConfig.includes('"destination_address": "order@swaggy.agency"')) {
   failures.push("Lead email binding must target order@swaggy.agency.");
