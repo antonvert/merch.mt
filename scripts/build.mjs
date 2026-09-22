@@ -258,14 +258,14 @@ const html = `<!doctype html>
   <meta property="og:title" content="${escapeHtml(site.title)}">
   <meta property="og:description" content="${escapeHtml(site.description)}">
   <meta property="og:url" content="${site.url}/">
-  <meta property="og:image" content="${site.url}/assets/images/og-swaggy-merchandise-malta-2026.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+  <meta property="og:image" content="${site.url}/assets/images/og-swaggy-merchandise-malta-social-v2.jpg">
+  <meta property="og:image:width" content="600">
+  <meta property="og:image:height" content="315">
   <meta property="og:image:alt" content="SWAGGY branded merchandise prepared for an international event team">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(site.title)}">
   <meta name="twitter:description" content="${escapeHtml(site.description)}">
-  <meta name="twitter:image" content="${site.url}/assets/images/og-swaggy-merchandise-malta-2026.jpg">
+  <meta name="twitter:image" content="${site.url}/assets/images/og-swaggy-merchandise-malta-social-v2.jpg">
   <link rel="preload" as="image" href="/assets/images/starcrown-event-gifts.webp" imagesrcset="/assets/images/starcrown-event-gifts-640.webp 640w, /assets/images/starcrown-event-gifts.webp 960w" imagesizes="(max-width: 860px) 100vw, 42vw">
   <link rel="stylesheet" href="/assets/styles.css?v=${assetVersion}">
   <script type="application/ld+json">${JSON.stringify(structuredData)}</script>
@@ -554,10 +554,15 @@ const productionHtml = renderVariant({ theme: "production", themeColor: "#f5f4f0
     `\n${productionOpsProcess}\n    </div>\n\n    <section class="section faq-section">`
   );
 
-const productionRootHtml = productionHtml.replace(
-  '  <meta name="robots" content="noindex,nofollow">\n',
-  ""
-);
+const productionRootHtml = productionHtml
+  .replace(
+    '  <meta name="robots" content="noindex,nofollow">\n',
+    ""
+  )
+  .replace(
+    '  <script type="application/ld+json">',
+    '  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YRCP7PXYYE"></script>\n  <script type="application/ld+json">'
+  );
 
 const notFoundHtml = `<!doctype html>
 <html lang="en">
@@ -590,7 +595,7 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   </url>
 </urlset>`;
 const headers = `/*
-  Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com; style-src 'self'; script-src 'self' https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   X-Content-Type-Options: nosniff

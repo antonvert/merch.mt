@@ -1,7 +1,23 @@
 (() => {
+  const GA_MEASUREMENT_ID = "G-YRCP7PXYYE";
+  const isProductionHost = ["merch.mt", "www.merch.mt"].includes(window.location.hostname);
+
+  window.dataLayer = window.dataLayer || [];
+  if (isProductionHost) {
+    window.gtag =
+      window.gtag ||
+      function gtag() {
+        window.dataLayer.push(arguments);
+      };
+    window.gtag("js", new Date());
+    window.gtag("config", GA_MEASUREMENT_ID);
+  }
+
   const pushEvent = (event, details = {}) => {
-    window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event, ...details });
+    if (isProductionHost && window.gtag) {
+      window.gtag("event", event, details);
+    }
   };
 
   document.querySelectorAll("[data-event]").forEach((element) => {
