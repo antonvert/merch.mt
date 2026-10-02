@@ -275,10 +275,10 @@ const html = `<!doctype html>
   <main id="main">
     <section class="hero" id="top">
       <header class="site-header" data-header>
-        <a class="brand" href="#top" aria-label="merch.mt home">
-          <span class="brand__wordmark">merch.mt</span>
-          <span class="brand__endorsement">Powered by SWAGGY</span>
-        </a>
+        <div class="brand-badge">
+          <a class="brand" href="#top" aria-label="merch.mt home"><span class="brand__wordmark">merch.mt</span></a>
+          <a class="brand-badge__endorsement" href="${site.poweredByUrl}" target="_blank" rel="noopener" aria-label="By SWAGGY"><span>BY</span><strong>SWAGGY</strong></a>
+        </div>
         <nav class="desktop-nav" aria-label="Main navigation">
           <a href="#merchandise">Merchandise</a>
           <a href="#conferences">Conferences</a>
@@ -461,8 +461,11 @@ const html = `<!doctype html>
   </main>
 
   <footer class="site-footer">
-    <div>
-      <a class="brand brand--footer" href="#top"><span class="brand__wordmark">merch.mt</span><span class="brand__endorsement">A project by SWAGGY.agency</span></a>
+    <div class="footer-primary">
+      <div class="footer-identity">
+        <a class="brand brand--footer" href="#top"><span class="brand__wordmark">merch.mt</span></a>
+        <a class="footer-project" href="${site.poweredByUrl}" target="_blank" rel="noopener">A PROJECT<br>BY<br>SWAGGY.AGENCY</a>
+      </div>
       <p>Event and conference merchandise produced in the EU and delivered to Malta.</p>
     </div>
     <div class="footer-links">
@@ -576,7 +579,7 @@ const notFoundHtml = `<!doctype html>
 </head>
 <body class="error-page">
   <main>
-    <a class="brand" href="/"><span class="brand__wordmark">merch.mt</span><span class="brand__endorsement">Powered by SWAGGY</span></a>
+    <a class="brand" href="/"><span class="brand__wordmark">merch.mt</span><span class="brand__endorsement">BY SWAGGY</span></a>
     <p class="error-page__code">404</p>
     <h1>This page missed the event.</h1>
     <p>The merchandise route still starts on the homepage.</p>
