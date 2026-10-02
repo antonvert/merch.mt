@@ -1662,3 +1662,109 @@ body.theme-production {
     transition: none;
   }
 }
+
+/* Unified SWAGGY production footer */
+.theme-production .site-footer {
+  display: grid;
+  width: min(calc(100% - 24px), 1480px);
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px 28px;
+  margin: 0 auto 10px;
+  padding: 18px 28px 12px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.theme-production .footer-primary {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 20px;
+}
+
+.theme-production .footer-identity {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 14px;
+}
+
+.theme-production .footer-project,
+.theme-production .footer-links a,
+.theme-production .brand--footer {
+  color: var(--ink);
+}
+
+.theme-production .footer-project {
+  max-width: 82px;
+  font-size: 0.58rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  line-height: 1.05;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.theme-production .footer-primary > p {
+  max-width: 520px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+.theme-production .footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-self: center;
+  justify-content: flex-end;
+  gap: 8px 18px;
+  text-align: right;
+}
+
+.theme-production .footer-note {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.66rem;
+}
+
+@media (max-width: 900px) {
+  .theme-production .site-footer {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 18px 18px 14px;
+  }
+
+  .theme-production .footer-primary {
+    display: grid;
+    gap: 8px;
+  }
+
+  .theme-production .footer-links {
+    justify-content: flex-start;
+    text-align: left;
+  }
+}
+
+@media (max-width: 620px) {
+  .theme-production .site-footer {
+    width: calc(100% - 16px);
+    border-radius: 8px;
+  }
+
+  .theme-production .footer-identity {
+    gap: 10px;
+  }
+
+  .theme-production .footer-project {
+    max-width: 72px;
+    font-size: 0.52rem;
+  }
+}
