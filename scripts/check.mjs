@@ -27,8 +27,8 @@ if (!html.includes('og:image:type" content="image/jpeg"') || !html.includes('og:
   failures.push("Social preview Open Graph image metadata is incomplete.");
 }
 if (!html.includes('type="application/ld+json"')) failures.push("Structured data is missing.");
-if (!html.includes('https://www.googletagmanager.com/gtag/js?id=G-YRCP7PXYYE')) {
-  failures.push("GA4 Google tag is missing from the production homepage.");
+if (html.includes('https://www.googletagmanager.com/gtag/js?id=G-YRCP7PXYYE')) {
+  failures.push("GA4 must not load from HTML before analytics consent.");
 }
 if (!html.includes('/assets/script.js')) failures.push("Production analytics bootstrap script is missing.");
 if (!html.includes('action="/api/lead"')) failures.push("Lead form endpoint is missing.");
@@ -46,9 +46,14 @@ const clientScript = await readFile(path.join(root, "dist/assets/script.js"), "u
 if (!clientScript.includes('G-YRCP7PXYYE') || !clientScript.includes('window.gtag("config", GA_MEASUREMENT_ID)')) {
   failures.push("Production JS must initialize GA4 with G-YRCP7PXYYE.");
 }
+if (!clientScript.includes("googletagmanager.com/gtag/js")) failures.push("Consent-gated GA4 loader is missing.");
 if (!clientScript.includes('window.gtag("event", event, details)')) {
   failures.push("Custom site events must be forwarded to GA4.");
 }
+for (const eventName of ["generate_lead", "click_email", "click_phone", "click_messenger", "click_booking"]) {
+  if (!clientScript.includes(eventName)) failures.push(`Canonical analytics event is missing: ${eventName}`);
+}
+if (!clientScript.includes("analytics_storage") || !clientScript.includes("analytics-consent")) failures.push("Consent-gated analytics is missing.");
 if (!wranglerConfig.includes('"name": "LEAD_EMAIL"') || !wranglerConfig.includes('"destination_address": "order@swaggy.agency"')) {
   failures.push("Lead email binding must target order@swaggy.agency.");
 }
