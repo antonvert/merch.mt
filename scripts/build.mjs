@@ -561,10 +561,6 @@ const productionRootHtml = productionHtml
   .replace(
     '  <meta name="robots" content="noindex,nofollow">\n',
     ""
-  )
-  .replace(
-    '  <script type="application/ld+json">',
-    '  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YRCP7PXYYE"></script>\n  <script type="application/ld+json">'
   );
 
 const notFoundHtml = `<!doctype html>

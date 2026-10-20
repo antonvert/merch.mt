@@ -1,29 +1,82 @@
 (() => {
   const GA_MEASUREMENT_ID = "G-YRCP7PXYYE";
   const isProductionHost = ["merch.mt", "www.merch.mt"].includes(window.location.hostname);
+  const CONSENT_KEY = "merch_mt_analytics_consent_v1";
 
   window.dataLayer = window.dataLayer || [];
-  if (isProductionHost) {
-    window.gtag =
-      window.gtag ||
-      function gtag() {
-        window.dataLayer.push(arguments);
-      };
+  window.gtag =
+    window.gtag ||
+    function gtag() {
+      window.dataLayer.push(arguments);
+    };
+  let analyticsEnabled = false;
+
+  const readConsent = () => {
+    try { return window.localStorage.getItem(CONSENT_KEY); } catch { return null; }
+  };
+
+  const writeConsent = (value) => {
+    try { window.localStorage.setItem(CONSENT_KEY, value); } catch { /* Analytics remains optional. */ }
+  };
+
+  const enableAnalytics = () => {
+    if (!isProductionHost || analyticsEnabled) return;
+    analyticsEnabled = true;
+    window.gtag("consent", "default", {
+      analytics_storage: "denied",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied"
+    });
+    window.gtag("consent", "update", { analytics_storage: "granted" });
+    const analyticsScript = document.createElement("script");
+    analyticsScript.async = true;
+    analyticsScript.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GA_MEASUREMENT_ID)}`;
+    document.head.append(analyticsScript);
     window.gtag("js", new Date());
     window.gtag("config", GA_MEASUREMENT_ID);
-  }
+  };
+
+  const mountConsent = () => {
+    if (!isProductionHost) return;
+    const stored = readConsent();
+    if (stored === "granted") { enableAnalytics(); return; }
+    if (stored === "denied") return;
+    const banner = document.createElement("aside");
+    banner.className = "analytics-consent";
+    banner.setAttribute("aria-label", "Analytics preferences");
+    banner.innerHTML = '<div><strong>Optional analytics</strong><p>Anonymous usage data helps us improve the site. It is never combined with form details.</p></div><div class="analytics-consent__actions"><button type="button" data-analytics-consent="denied">No thanks</button><button type="button" data-analytics-consent="granted">Allow analytics</button></div>';
+    banner.addEventListener("click", (event) => {
+      const choice = event.target.closest("[data-analytics-consent]")?.dataset.analyticsConsent;
+      if (!choice) return;
+      writeConsent(choice);
+      if (choice === "granted") enableAnalytics();
+      banner.remove();
+    });
+    document.body.append(banner);
+  };
 
   const pushEvent = (event, details = {}) => {
-    window.dataLayer.push({ event, ...details });
-    if (isProductionHost && window.gtag) {
+    if (analyticsEnabled) {
       window.gtag("event", event, details);
+    } else if (!isProductionHost) {
+      window.dataLayer.push({ event, ...details });
     }
   };
 
+  const normalizedEventName = (name) => ({
+    telegram_click: "click_messenger",
+    email_click: "click_email",
+    phone_click: "click_phone",
+    booking_click: "click_booking"
+  }[name] || name);
+
   document.querySelectorAll("[data-event]").forEach((element) => {
     element.addEventListener("click", () => {
-      pushEvent(element.dataset.event, {
-        event_label: element.dataset.eventLabel || element.textContent.trim()
+      const eventName = normalizedEventName(element.dataset.event);
+      pushEvent(eventName, {
+        event_label: (element.dataset.eventLabel || element.textContent.trim()).slice(0, 100),
+        messenger: eventName === "click_messenger" ? "telegram" : ""
       });
     });
   });
@@ -45,6 +98,8 @@
     );
     document.querySelectorAll("[data-observe-event]").forEach((element) => observer.observe(element));
   }
+
+  mountConsent();
 
   const form = document.querySelector("[data-lead-form]");
   const stickyCta = document.querySelector(".mobile-sticky-cta");
@@ -121,6 +176,7 @@
       }
 
       pushEvent("form_submit", { event_name: payload.event || "not provided" });
+      pushEvent("generate_lead", { lead_source: "contact_form" });
       form.reset();
       resetStartedAt();
       status.textContent = "Thank you—your brief is on its way. We will get back to you shortly.";
