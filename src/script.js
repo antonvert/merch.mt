@@ -1,3 +1,24 @@
+
+  // Send a clean page address; campaign labels are separate from contact/form query strings.
+  function analyticsContext() {
+    const context = {
+      page_location: location.origin + location.pathname,
+      page_referrer: '',
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false
+    };
+    try { const ref = new URL(document.referrer); context.page_referrer = ref.origin + ref.pathname; } catch (_) {}
+    const query = new URLSearchParams(location.search);
+    for (const [utm, field] of Object.entries({utm_source:'campaign_source', utm_medium:'campaign_medium', utm_campaign:'campaign_name', utm_content:'campaign_content', utm_term:'campaign_term'})) {
+      const value = query.get(utm);
+      if (value && /^[a-zA-Z0-9_. -]{1,100}$/.test(value) && !/\d{7}/.test(value)) context[field] = value;
+    }
+    if (query.get('codex_test') === 'seo_20261107') { context.debug_mode = true; context.test_run = 'seo_20261107'; }
+    return context;
+  }
+  function analyticsPage() {
+    return {site: location.hostname.replace(/^www\./, ''), language: document.documentElement.lang || 'en', page_path: location.pathname};
+  }
 (() => {
   const GA_MEASUREMENT_ID = "G-YRCP7PXYYE";
   const isProductionHost = ["merch.mt", "www.merch.mt"].includes(window.location.hostname);
@@ -10,6 +31,7 @@
       window.dataLayer.push(arguments);
     };
   let analyticsEnabled = false;
+  let analyticsLoaded = false;
 
   const readConsent = () => {
     try { return window.localStorage.getItem(CONSENT_KEY); } catch { return null; }
@@ -22,6 +44,10 @@
   const enableAnalytics = () => {
     if (!isProductionHost || analyticsEnabled) return;
     analyticsEnabled = true;
+    window["ga-disable-" + GA_MEASUREMENT_ID] = false;
+    window.gtag("consent", "update", { analytics_storage: "granted" });
+    if (analyticsLoaded) return;
+    analyticsLoaded = true;
     window.gtag("consent", "default", {
       analytics_storage: "denied",
       ad_storage: "denied",
@@ -34,14 +60,15 @@
     analyticsScript.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GA_MEASUREMENT_ID)}`;
     document.head.append(analyticsScript);
     window.gtag("js", new Date());
-    window.gtag("config", GA_MEASUREMENT_ID);
+    window.gtag("config", GA_MEASUREMENT_ID, analyticsContext());
   };
 
-  const mountConsent = () => {
+  const mountConsent = (settings = false) => {
+    if (document.querySelector(".analytics-consent")) return;
     if (!isProductionHost) return;
     const stored = readConsent();
-    if (stored === "granted") { enableAnalytics(); return; }
-    if (stored === "denied") return;
+    if (stored === "granted") { enableAnalytics(); if (!settings) return; }
+    if (stored === "denied" && !settings) return;
     const banner = document.createElement("aside");
     banner.className = "analytics-consent";
     banner.setAttribute("aria-label", "Analytics preferences");
@@ -51,6 +78,16 @@
       if (!choice) return;
       writeConsent(choice);
       if (choice === "granted") enableAnalytics();
+      else {
+        analyticsEnabled = false;
+        window["ga-disable-" + GA_MEASUREMENT_ID] = true;
+        window.gtag("consent", "update", { analytics_storage: "denied" });
+        for (const part of document.cookie.split(';')) {
+          const name = part.split('=')[0].trim();
+          if (!/^_ga(?:_|$)/.test(name)) continue;
+          for (const domain of ['', location.hostname, '.' + location.hostname]) document.cookie = name + '=; Max-Age=0; path=/' + (domain ? '; domain=' + domain : '');
+        }
+      }
       banner.remove();
     });
     document.body.append(banner);
@@ -58,7 +95,7 @@
 
   const pushEvent = (event, details = {}) => {
     if (analyticsEnabled) {
-      window.gtag("event", event, details);
+      window.gtag("event", event, { ...analyticsPage(), ...details });
     } else if (!isProductionHost) {
       window.dataLayer.push({ event, ...details });
     }
@@ -100,6 +137,14 @@
   }
 
   mountConsent();
+  if (isProductionHost) {
+    const settings = document.createElement('button');
+    settings.type = 'button';
+    settings.className = 'analytics-settings';
+    settings.textContent = document.documentElement.lang === 'ru' ? 'Настройки аналитики' : document.documentElement.lang === 'ka' ? 'ანალიტიკის პარამეტრები' : 'Analytics preferences';
+    settings.addEventListener('click', () => mountConsent(true));
+    (document.querySelector('footer') || document.body).appendChild(settings);
+  }
 
   const form = document.querySelector("[data-lead-form]");
   const stickyCta = document.querySelector(".mobile-sticky-cta");
@@ -120,6 +165,7 @@
   const submitButton = form.querySelector("[data-submit-button]");
   const startedAt = form.querySelector("[data-started-at]");
   let formStarted = false;
+  let submitting = false;
 
   const resetStartedAt = () => {
     startedAt.value = String(Date.now());
@@ -139,6 +185,7 @@
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
+    if (submitting) return;
     status.textContent = "";
     status.className = "form-status";
 
@@ -154,6 +201,7 @@
 
     const payload = Object.fromEntries(new FormData(form).entries());
     payload.consent = Boolean(payload.consent);
+    submitting = true;
     submitButton.disabled = true;
     submitButton.textContent = "Sending…";
 
@@ -165,7 +213,7 @@
       });
       const result = await response.json().catch(() => ({}));
 
-      if (!response.ok) {
+      if (!response.ok || result.ok !== true) {
         if (result.code === "destination_not_configured") {
           throw new Error("The preview form is ready, but lead delivery is not connected yet. Please use Telegram or email for a live quote.");
         }
@@ -175,7 +223,7 @@
         throw new Error(result.message || "We could not send the brief. Please try Telegram or email instead.");
       }
 
-      pushEvent("form_submit", { event_name: payload.event || "not provided" });
+      pushEvent("form_submit", { page_context: "homepage" });
       pushEvent("generate_lead", { lead_source: "contact_form" });
       form.reset();
       resetStartedAt();
@@ -185,6 +233,7 @@
       status.textContent = error.message;
       status.classList.add("is-error");
     } finally {
+      submitting = false;
       submitButton.disabled = false;
       submitButton.innerHTML = 'Let’s Make Merch <span aria-hidden="true">↗</span>';
     }

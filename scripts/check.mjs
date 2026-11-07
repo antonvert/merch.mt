@@ -43,11 +43,11 @@ if (!workerSource.includes('url.hostname === "www.merch.mt"')) {
   failures.push("www.merch.mt canonical redirect is missing.");
 }
 const clientScript = await readFile(path.join(root, "dist/assets/script.js"), "utf8");
-if (!clientScript.includes('G-YRCP7PXYYE') || !clientScript.includes('window.gtag("config", GA_MEASUREMENT_ID)')) {
+if (!clientScript.includes('G-YRCP7PXYYE') || !clientScript.includes('window.gtag("config", GA_MEASUREMENT_ID, analyticsContext())')) {
   failures.push("Production JS must initialize GA4 with G-YRCP7PXYYE.");
 }
 if (!clientScript.includes("googletagmanager.com/gtag/js")) failures.push("Consent-gated GA4 loader is missing.");
-if (!clientScript.includes('window.gtag("event", event, details)')) {
+if (!clientScript.includes('window.gtag("event", event, { ...analyticsPage(), ...details })')) {
   failures.push("Custom site events must be forwarded to GA4.");
 }
 for (const eventName of ["generate_lead", "click_email", "click_phone", "click_messenger", "click_booking"]) {

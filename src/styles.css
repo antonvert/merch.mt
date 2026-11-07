@@ -1881,3 +1881,5 @@ h1 {
     font-size: 0.52rem;
   }
 }
+
+.analytics-settings { display:block; margin:16px auto; padding:10px 16px; background:transparent; color:inherit; border:1px solid currentColor; border-radius:4px; font:inherit; cursor:pointer; }
