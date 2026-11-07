@@ -3,7 +3,7 @@ export const site = {
   url: "https://merch.mt",
   title: "Event & Conference Merchandise Malta | merch.mt",
   description:
-    "Branded event merchandise, conference giveaways and promotional products produced in the EU and delivered to booths, hotels and venues across Malta.",
+    "Event merchandise and conference supplies for Malta. EU-produced branded apparel, giveaways, gifts and print delivered to your booth, hotel or venue.",
   email: "order@swaggy.agency",
   telegramUrl: "https://t.me/swaggyagency",
   telegramLabel: "@swaggyagency",
