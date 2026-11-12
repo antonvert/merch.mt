@@ -38,7 +38,7 @@ export async function extendEvents(root,site){
  }
  const footerLinks='<nav class="event-footer-links" aria-label="Services and site map"><a href="/events/">Event merchandise</a><a href="/site-map/">Site map</a><a href="/sitemap.xml">Sitemap XML</a><a href="/llms.txt">LLMs.txt</a></nav>';
  function discovery(html){return html.replace('</head>','<link rel="stylesheet" href="/assets/event-pages.css?v=20261112"></head>').replace(/(<p class="footer-note">)/,footerLinks+'$1');}
- home=discovery(home);await writeFile(path.join(dist,'index.html'),home);await writeFile(path.join(dist,'assets/event-pages.css'),css);
+ home=discovery(home);await writeFile(path.join(dist,'index.html'),home);await writeFile(path.join(dist,'assets/event-pages.css'),css+'.event-document a.button{color:#fff}.event-page{overflow-x:clip}');
  const head=original.match(/<head>([\s\S]*?)<\/head>/)?.[1];const bodyOpen=original.match(/<body\b[^>]*>/)?.[0];const header=original.match(/<header\b[\s\S]*?<\/header>/)?.[0];const footer=original.match(/<footer\b[\s\S]*?<\/footer>/)?.[0];const formId=mt?'quote':'brief';
  const formStart=original.indexOf('<section class="'+(mt?'quote-section':'brief-section')+'"');if(formStart<0)throw Error('Missing original form section');const formEnd=original.indexOf('</section>',formStart)+10;const form=original.slice(formStart,formEnd);
  const scripts=[...original.matchAll(/<script\b[^>]*src=[^>]*>[\s\S]*?<\/script>/g)].map(x=>x[0]).join('\n');if(!head||!bodyOpen||!header||!footer||!form.includes('data-lead-form'))throw Error('Missing site shell');
