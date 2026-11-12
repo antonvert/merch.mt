@@ -38,7 +38,7 @@ export async function extendEvents(root,site){
   home=home.replace(/<a\b[^>]*data-event-label="([^"]+)"[^>]*>/g,tag=>tag.includes(`data-event-label="${label}"`)?tag.replace(/href="[^"]*"/,`href="${href(i)}"`):tag);
  }
  const footerLinks='<nav class="event-footer-links" aria-label="Services and site map"><a href="/events/">Event merchandise</a><a href="/site-map/">Site map</a><a href="/sitemap.xml">Sitemap XML</a><a href="/llms.txt">LLMs.txt</a></nav>';
- const eventStyles=css+'.event-document a.button{color:#fff}.event-page{overflow-x:clip}';
+ const eventStyles=css+'.theme-production .conference-card h3 a.event-detail-link{display:inline;margin:0;font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit}'+'.event-document a.button{color:#fff}.event-page{overflow-x:clip}';
  const eventStyleVersion=createHash('sha256').update(eventStyles).digest('hex').slice(0,10);
  function discovery(html){return html.replace('</head>',`<link rel="stylesheet" href="/assets/event-pages.css?v=${eventStyleVersion}"></head>`).replace(/(<p class="footer-note">)/,footerLinks+'$1');}
  home=discovery(home);await writeFile(path.join(dist,'index.html'),home);await writeFile(path.join(dist,'assets/event-pages.css'),eventStyles);
