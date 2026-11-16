@@ -651,3 +651,6 @@ console.log(`Built merch.mt → ${path.relative(projectRoot, distDir)}`);
 
 const {extendEvents}=await import('./extend-events.mjs');
 await extendEvents(projectRoot,site);
+
+const {extendEventHr}=await import('./extend-event-hr.mjs');
+await extendEventHr(projectRoot,site);
